@@ -1,0 +1,19 @@
+{
+  "name": "chrono",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "dev": "wds --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Victor Hugo Aguilar Aguilar",
+  "license": "ISC",
+  "dependencies": {
+    "lit": "^2.6.1"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.31",
+    "polymer-cli": "^1.9.11"
+  }
+}
