@@ -8,7 +8,6 @@ export class MyTimer extends LitElement {
     duration: {},
     end: { state: true },
     remaining: { state: true },
-    background: {},
   };
   static styles = css`
     /* playground-fold */
@@ -23,8 +22,8 @@ export class MyTimer extends LitElement {
       flex-direction: column;
       justify-content: space-between;
     }
+
     .time {
-      background-color: greenyellow;
       font-size: 7em;
       padding-bottom: 15%;
       padding-top: 15%;
@@ -49,9 +48,14 @@ export class MyTimer extends LitElement {
     const min = Math.floor(remaining / 60000);
     const sec = pad(min, Math.floor((remaining / 1000) % 60));
     const hun = pad(true, Math.floor((remaining % 1000) / 10));
+
+    const mainColor = remaining <= 5000 ? css`red` : css`greenyellow`;
+
     return html`
       <div class="container">
-        <div class="time">${min ? `${min}:${sec}` : `${sec}.${hun}`}</div>
+        <div class="time" style="background-color:${mainColor}">
+          ${min ? `${min}:${sec}` : `${sec}.${hun}`}
+        </div>
         <div class="control">
           ${remaining === 0
             ? ""
