@@ -14,7 +14,11 @@ export class MainApp extends LitElement {
   }
 
   static get styles() {
-    return css``;
+    return css`
+      .container {
+        width: 100%;
+      }
+    `;
   }
 
   connectedCallback() {
@@ -42,7 +46,7 @@ export class MainApp extends LitElement {
 
   render() {
     return html`
-      <div>
+      <div class="container">
         <my-timer id="exercise" class="exercise" duration="30" name="exercise"></my-timer>
         <my-timer id="rest" class="rest" duration="90" name="rest"></my-timer>
       </div>

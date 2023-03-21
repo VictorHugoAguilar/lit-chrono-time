@@ -25,7 +25,6 @@ export class MyTimer extends LitElement {
     /* playground-fold */
     :host {
       width: 100%;
-      height: 800px;
       display: inline-block;
       text-align: center;
     }
@@ -39,6 +38,7 @@ export class MyTimer extends LitElement {
       font-size: 7em;
       padding-bottom: 15%;
       padding-top: 15%;
+      user-select: none;
     }
     .control {
       user-select: none;

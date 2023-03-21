@@ -10,7 +10,8 @@
   "author": "Victor Hugo Aguilar Aguilar",
   "license": "ISC",
   "dependencies": {
-    "lit": "^2.6.1"
+    "lit": "^2.6.1",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "@web/dev-server": "^0.1.31",
