@@ -7,7 +7,19 @@ export class MyTimer extends LitElement {
   static properties = {
     duration: {},
     end: { state: true },
-    remaining: { state: true },
+    remaining: {
+      state: true,
+      // hasChanged(newVal, oldVal) {
+      //   if (newVal === 0 && oldVal < 20) {
+      //     console.log("newVal", newVal);
+      //     console.log("oldVal", oldVal);
+      //     // this.fireEvent("start", this.name);
+      //   }
+      //   return newVal;
+      // },
+    },
+    executing: { state: false },
+    name: { type: String },
   };
   static styles = css`
     /* playground-fold */
@@ -41,6 +53,8 @@ export class MyTimer extends LitElement {
     this.duration = 60;
     this.end = null;
     this.remaining = 0;
+    this.name = "";
+    this.executing = false;
   }
 
   render() {
@@ -72,10 +86,25 @@ export class MyTimer extends LitElement {
   start() {
     this.end = Date.now() + this.remaining;
     this.tick();
+    this.executing = true;
   }
 
   pause() {
     this.end = null;
+  }
+
+  set remaining(val) {
+    let oldVal = this._remaining;
+    this._remaining = val;
+    this.requestUpdate("remaining", oldVal);
+    /* this.dosomething(); */
+  }
+  get remaining() {
+    if (this._remaining < 20 && this._remaining > 0 && this.executing) {
+      this.fireEvent("start", this.name);
+      this.executing = false;
+    }
+    return this._remaining;
   }
 
   reset() {
@@ -91,6 +120,16 @@ export class MyTimer extends LitElement {
     }
   }
 
+  fireEvent(name, detail) {
+    this.dispatchEvent(
+      new CustomEvent(name, {
+        composed: true,
+        bubbles: true,
+        detail,
+      })
+    );
+  }
+
   get running() {
     return this.end && this.remaining;
   }
@@ -98,11 +137,18 @@ export class MyTimer extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.reset();
-  } /* playground-fold-end */
+  }
+
+  update() {
+    super.update();
+  }
+
+  /* playground-fold-end */
 }
 customElements.define("my-timer", MyTimer);
-/* playground-fold */
 
+/* playground-fold */
 function pad(pad, val) {
   return pad ? String(val).padStart(2, "0") : val;
-} /* playground-fold-end */
+}
+/* playground-fold-end */

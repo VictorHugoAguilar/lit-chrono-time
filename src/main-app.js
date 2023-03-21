@@ -1,0 +1,53 @@
+import { LitElement, html, css } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+
+import "./my-chrono.js";
+
+export class MainApp extends LitElement {
+  static get properties() {
+    return {
+      listenerEvent: {},
+    };
+  }
+
+  constructor() {
+    super();
+  }
+
+  static get styles() {
+    return css``;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.listenerEvent = this.execute.bind(this);
+    this.addEventListener("start", this.listenerEvent);
+  }
+
+  disconnectedCallback() {
+    this.removeListener("start", this.listenerEvent);
+    super.disconnectedCallback();
+  }
+
+  execute({ detail }) {
+    console.log("detailevent", detail);
+    if (detail === "exercise") {
+      this.shadowRoot.querySelector("#rest").reset();
+      this.shadowRoot.querySelector("#rest").start();
+    }
+    if (detail === "rest") {
+      this.shadowRoot.querySelector("#exercise").reset();
+      this.shadowRoot.querySelector("#exercise").start();
+    }
+  }
+
+  render() {
+    return html`
+      <div>
+        <my-timer id="exercise" class="exercise" duration="30" name="exercise"></my-timer>
+        <my-timer id="rest" class="rest" duration="90" name="rest"></my-timer>
+      </div>
+    `;
+  }
+}
+
+customElements.define("main-app", MainApp);
