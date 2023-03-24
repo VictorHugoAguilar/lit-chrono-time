@@ -1,7 +1,5 @@
 import { LitElement, html, css } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
-/* playground-fold */
 import { play, pause, replay } from "./icons.js";
-/* playground-fold-end */
 
 export class MyTimer extends LitElement {
   static properties = {
