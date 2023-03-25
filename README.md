@@ -1,2 +1,4 @@
-# Chrono time
+# Chrono time for workout
+
+---
 
