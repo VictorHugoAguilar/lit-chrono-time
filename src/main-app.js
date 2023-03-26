@@ -18,6 +18,9 @@ export class MainApp extends LitElement {
       .container {
         width: 100%;
       }
+      #exercise{
+         border: thin solid black;
+      }
     `;
   }
 
