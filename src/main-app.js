@@ -17,14 +17,24 @@ export class MainApp extends LitElement {
         type: String,
         attribute: 'time-rest',
       },
-      listenerEvent: {},
+      executing: {
+        type: String,
+      },
+      autoRunning: {
+        type: Boolean
+      },
+      listenerEventStart: {},
+      listenerEventLaunch: {},
+
     };
   }
 
   constructor() {
     super();
-    this.timeExercice = 30;
+    this.timeExercice = 5;
     this.timeRest = 90;
+    this.executing = '';
+    this.autoRunning = false;
   }
 
   static get styles() {
@@ -37,26 +47,60 @@ export class MainApp extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.listenerEvent = this.execute.bind(this);
-    this.addEventListener("start", this.listenerEvent);
+    this.listenerEventStart = this.executeStart.bind(this);
+    this.listenerEventLaunch = this.executeLaunch.bind(this);
+    this.addEventListener("start", this.listenerEventStart);
+    this.addEventListener("launch", this.listenerEventLaunch);
   }
 
   disconnectedCallback() {
-    this.removeListener("start", this.listenerEvent);
+    this.removeListener("start", this.listenerEventStart);
+    this.removeListener("launch", this.listenerEventLaunch);
     super.disconnectedCallback();
   }
 
-  execute({
+  executeStart({
     detail
   }) {
-    console.log("detailevent", detail);
-    if (detail === "exercise") {
+    console.log("start manual", detail);
+    this.autoRunning = true;
+    this.execute(detail);
+  }
+
+  executeLaunch({
+    detail
+  }) {
+    console.log("start automatic", detail);
+    this.autoRunning = false;
+    this.execute(detail);
+  }
+
+  /**
+   * Dependiendo del nombre evento que viene se ejecuta y restaura 
+   * el componente secundario.
+   * @param {String} nameEvent 
+   */
+  execute(nameEvent) {
+    this.executing = nameEvent;
+    if (this.autoRunning && this.executing === "exercise") {
+      this.shadowRoot.querySelector("#exercise").start();
+      this.shadowRoot.querySelector("#exercise").reset();
+      this.shadowRoot.querySelector("#rest").stop();
+    }
+    if (this.autoRunning && this.executing === "rest") {
       this.shadowRoot.querySelector("#rest").reset();
       this.shadowRoot.querySelector("#rest").start();
+      this.shadowRoot.querySelector("#exercise").stop();
     }
-    if (detail === "rest") {
-      this.shadowRoot.querySelector("#exercise").reset();
+    if (!this.autoRunning && this.executing === "rest") {
       this.shadowRoot.querySelector("#exercise").start();
+      this.shadowRoot.querySelector("#exercise").reset();
+      // this.shadowRoot.querySelector("#rest").stop();
+    }
+    if (!this.autoRunning && this.executing === "exercise") {
+      this.shadowRoot.querySelector("#rest").reset();
+      this.shadowRoot.querySelector("#rest").start();
+      // this.shadowRoot.querySelector("#exercise").stop();
     }
   }
 

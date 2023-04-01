@@ -10,30 +10,26 @@ import {
 } from "./icons.js";
 
 export class MyTimer extends LitElement {
-  static properties = {
-    duration: {},
-    end: {
-      state: true
-    },
-    remaining: {
-      state: true,
-      // hasChanged(newVal, oldVal) {
-      //   if (newVal === 0 && oldVal < 20) {
-      //     console.log("newVal", newVal);
-      //     console.log("oldVal", oldVal);
-      //     // this.fireEvent("start", this.name);
-      //   }
-      //   return newVal;
-      // },
-    },
-    executing: {
-      state: false
-    },
-    name: {
-      type: String
-    },
+  static get properties() {
+    return {
+      duration: {},
+      end: {
+        state: true
+      },
+      remaining: {
+        state: true,
+      },
+      executing: {
+        state: false
+      },
+      name: {
+        type: String
+      },
+    }
   };
-  static styles = css `
+
+  static get styles() {
+    return css `
     /* playground-fold */
     :host {
       width: 100%;
@@ -59,6 +55,7 @@ export class MyTimer extends LitElement {
     }
     /* playground-fold-end */
   `;
+  }
 
   constructor() {
     super();
@@ -67,6 +64,15 @@ export class MyTimer extends LitElement {
     this.remaining = 0;
     this.name = "";
     this.executing = false;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.reset();
+  }
+
+  update() {
+    super.update();
   }
 
   render() {
@@ -90,22 +96,11 @@ export class MyTimer extends LitElement {
             ? ""
             : running
             ? html`<span @click=${this.pause}>${pause}</span>`
-            : html`<span @click=${this.start}>${play}</span>`}
+            : html`<span @click=${ () => {this.start(); this.startEvent()} }>${play}</span>`}
           <span @click=${this.reset}>${replay}</span>
         </div>
       </div>
     `;
-  }
-  /* playground-fold */
-
-  start() {
-    this.end = Date.now() + this.remaining;
-    this.tick();
-    this.executing = true;
-  }
-
-  pause() {
-    this.end = null;
   }
 
   set remaining(val) {
@@ -116,7 +111,7 @@ export class MyTimer extends LitElement {
   }
   get remaining() {
     if (this._remaining < 20 && this._remaining > 0 && this.executing) {
-      this.fireEvent("start", this.name);
+      this.fireEvent("launch", this.name);
       this.executing = false;
     }
     return this._remaining;
@@ -135,10 +130,34 @@ export class MyTimer extends LitElement {
     }
   }
 
+  get running() {
+    return this.end && this.remaining;
+  }
+
+  start() {
+    this.end = Date.now() + this.remaining;
+    this.tick();
+    this.executing = true;
+  }
+
+  startEvent() {
+    this.fireEvent('start', this.name)
+  }
+
+  pause() {
+    this.end = null;
+  }
+
   reset() {
     const running = this.running;
     this.remaining = this.duration * 1000;
     this.end = running ? Date.now() + this.remaining : null;
+  }
+
+  stop() {
+    this.end = null;
+    this.executing = false;
+    this.remaining = this.duration * 1000;
   }
 
   tick() {
@@ -157,26 +176,9 @@ export class MyTimer extends LitElement {
       })
     );
   }
-
-  get running() {
-    return this.end && this.remaining;
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.reset();
-  }
-
-  update() {
-    super.update();
-  }
-
-  /* playground-fold-end */
 }
 customElements.define("my-timer", MyTimer);
 
-/* playground-fold */
 function pad(pad, val) {
   return pad ? String(val).padStart(2, "0") : val;
 }
-/* playground-fold-end */
