@@ -1,10 +1,20 @@
-import { LitElement, html, css } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
-import { play, pause, replay } from "./icons.js";
+import {
+  LitElement,
+  html,
+  css
+} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import {
+  play,
+  pause,
+  replay
+} from "./icons.js";
 
 export class MyTimer extends LitElement {
   static properties = {
     duration: {},
-    end: { state: true },
+    end: {
+      state: true
+    },
     remaining: {
       state: true,
       // hasChanged(newVal, oldVal) {
@@ -16,10 +26,14 @@ export class MyTimer extends LitElement {
       //   return newVal;
       // },
     },
-    executing: { state: false },
-    name: { type: String },
+    executing: {
+      state: false
+    },
+    name: {
+      type: String
+    },
   };
-  static styles = css`
+  static styles = css `
     /* playground-fold */
     :host {
       width: 100%;
@@ -56,14 +70,17 @@ export class MyTimer extends LitElement {
   }
 
   render() {
-    const { remaining, running } = this;
+    const {
+      remaining,
+      running
+    } = this;
     const min = Math.floor(remaining / 60000);
     const sec = pad(min, Math.floor((remaining / 1000) % 60));
     const hun = pad(true, Math.floor((remaining % 1000) / 10));
 
-    const mainColor = remaining <= 5000 ? css`red` : css`greenyellow`;
+    const mainColor = remaining <= 5000 ? this._warningStyle : css `greenyellow`;
 
-    return html`
+    return html `
       <div class="container">
         <div class="time" style="background-color:${mainColor}">
           ${min ? `${min}:${sec}` : `${sec}.${hun}`}
@@ -103,6 +120,19 @@ export class MyTimer extends LitElement {
       this.executing = false;
     }
     return this._remaining;
+  }
+
+  get _warningStyle() {
+    const refreshTime = Math.round(this.remaining / 100) % 3;
+    return this._colorRefresh[refreshTime]
+  }
+
+  get _colorRefresh() {
+    return {
+      0: css `red`,
+      1: css `yellow`,
+      2: css `greenyellow`,
+    }
   }
 
   reset() {

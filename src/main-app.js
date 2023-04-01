@@ -53,7 +53,7 @@ export class MainApp extends LitElement {
   render() {
     return html `
       <div class="container">
-        <my-timer id="exercise" class="exercise" duration="30" name="exercise"></my-timer>
+        <my-timer id="exercise" class="exercise" duration="7" name="exercise"></my-timer>
         <my-timer id="rest" class="rest" duration="90" name="rest"></my-timer>
       </div>
     `;
