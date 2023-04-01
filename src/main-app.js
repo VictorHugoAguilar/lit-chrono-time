@@ -9,12 +9,22 @@ import "./my-chrono.js";
 export class MainApp extends LitElement {
   static get properties() {
     return {
+      timeExercice: {
+        type: String,
+        attribute: 'time-exercice',
+      },
+      timeRest: {
+        type: String,
+        attribute: 'time-rest',
+      },
       listenerEvent: {},
     };
   }
 
   constructor() {
     super();
+    this.timeExercice = 30;
+    this.timeRest = 90;
   }
 
   static get styles() {
@@ -53,8 +63,8 @@ export class MainApp extends LitElement {
   render() {
     return html `
       <div class="container">
-        <my-timer id="exercise" class="exercise" duration="7" name="exercise"></my-timer>
-        <my-timer id="rest" class="rest" duration="90" name="rest"></my-timer>
+        <my-timer id="exercise" class="exercise" duration=${this.timeExercice} name="exercise"></my-timer>
+        <my-timer id="rest" class="rest" duration=${this.timeRest} name="rest"></my-timer>
       </div>
     `;
   }
