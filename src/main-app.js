@@ -1,4 +1,8 @@
-import { LitElement, html, css } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import {
+  LitElement,
+  html,
+  css
+} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
 import "./my-chrono.js";
 
@@ -14,12 +18,9 @@ export class MainApp extends LitElement {
   }
 
   static get styles() {
-    return css`
+    return css `
       .container {
         width: 100%;
-      }
-      #exercise{
-         border: thin solid black;
       }
     `;
   }
@@ -35,7 +36,9 @@ export class MainApp extends LitElement {
     super.disconnectedCallback();
   }
 
-  execute({ detail }) {
+  execute({
+    detail
+  }) {
     console.log("detailevent", detail);
     if (detail === "exercise") {
       this.shadowRoot.querySelector("#rest").reset();
@@ -48,7 +51,7 @@ export class MainApp extends LitElement {
   }
 
   render() {
-    return html`
+    return html `
       <div class="container">
         <my-timer id="exercise" class="exercise" duration="30" name="exercise"></my-timer>
         <my-timer id="rest" class="rest" duration="90" name="rest"></my-timer>
