@@ -31,7 +31,7 @@ export class MainApp extends LitElement {
 
   constructor() {
     super();
-    this.timeExercice = 5;
+    this.timeExercice = 30;
     this.timeRest = 90;
     this.executing = '';
     this.autoRunning = false;
