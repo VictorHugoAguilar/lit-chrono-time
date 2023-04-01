@@ -34,7 +34,7 @@ export class MainApp extends LitElement {
     this.timeExercice = 30;
     this.timeRest = 90;
     this.executing = '';
-    this.autoRunning = false;
+    this.autoRunning = true;
   }
 
   static get styles() {
@@ -63,7 +63,6 @@ export class MainApp extends LitElement {
     detail
   }) {
     console.log("start manual", detail);
-    this.autoRunning = true;
     this.execute(detail);
   }
 
@@ -71,7 +70,6 @@ export class MainApp extends LitElement {
     detail
   }) {
     console.log("start automatic", detail);
-    this.autoRunning = false;
     this.execute(detail);
   }
 
@@ -82,25 +80,30 @@ export class MainApp extends LitElement {
    */
   execute(nameEvent) {
     this.executing = nameEvent;
-    if (this.autoRunning && this.executing === "exercise") {
+    console.log('executing -> ', this.executing)
+    if (this.executing === "exercise") {
+      console.log('start manual exercise')
       this.shadowRoot.querySelector("#exercise").start();
       this.shadowRoot.querySelector("#exercise").reset();
       this.shadowRoot.querySelector("#rest").stop();
     }
-    if (this.autoRunning && this.executing === "rest") {
+    if (this.executing === "rest") {
+      console.log('start manual rest')
       this.shadowRoot.querySelector("#rest").reset();
       this.shadowRoot.querySelector("#rest").start();
       this.shadowRoot.querySelector("#exercise").stop();
     }
-    if (!this.autoRunning && this.executing === "rest") {
-      this.shadowRoot.querySelector("#exercise").start();
-      this.shadowRoot.querySelector("#exercise").reset();
-      // this.shadowRoot.querySelector("#rest").stop();
-    }
-    if (!this.autoRunning && this.executing === "exercise") {
+    if (this.autoRunning && this.executing === "finished-exercise") {
+      console.log('finished-exercise start rest')
       this.shadowRoot.querySelector("#rest").reset();
       this.shadowRoot.querySelector("#rest").start();
-      // this.shadowRoot.querySelector("#exercise").stop();
+      this.shadowRoot.querySelector("#exercise").stop();
+    }
+    if (this.autoRunning && this.executing === "finished-rest") {
+      console.log('finished-exercise start exercise')
+      this.shadowRoot.querySelector("#exercise").start();
+      this.shadowRoot.querySelector("#exercise").reset();
+      this.shadowRoot.querySelector("#rest").stop();
     }
   }
 

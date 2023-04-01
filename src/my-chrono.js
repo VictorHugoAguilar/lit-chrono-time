@@ -96,7 +96,7 @@ export class MyTimer extends LitElement {
             ? ""
             : running
             ? html`<span @click=${this.pause}>${pause}</span>`
-            : html`<span @click=${ () => {this.start(); this.startEvent()} }>${play}</span>`}
+            : html`<span @click=${ () => {this.start(); this.startManual()} }>${play}</span>`}
           <span @click=${this.reset}>${replay}</span>
         </div>
       </div>
@@ -109,9 +109,10 @@ export class MyTimer extends LitElement {
     this.requestUpdate("remaining", oldVal);
     /* this.dosomething(); */
   }
+
   get remaining() {
     if (this._remaining < 20 && this._remaining > 0 && this.executing) {
-      this.fireEvent("launch", this.name);
+      this.fireEvent("launch", `finished-${this.name}`);
       this.executing = false;
     }
     return this._remaining;
@@ -124,9 +125,12 @@ export class MyTimer extends LitElement {
 
   get _colorRefresh() {
     return {
-      0: css `red`,
-      1: css `yellow`,
-      2: css `greenyellow`,
+      0: css `
+            red `,
+      1: css `
+            yellow `,
+      2: css `
+            greenyellow `,
     }
   }
 
@@ -140,7 +144,7 @@ export class MyTimer extends LitElement {
     this.executing = true;
   }
 
-  startEvent() {
+  startManual() {
     this.fireEvent('start', this.name)
   }
 
@@ -156,8 +160,8 @@ export class MyTimer extends LitElement {
 
   stop() {
     this.end = null;
-    this.executing = false;
     this.remaining = this.duration * 1000;
+    this.executing = false;
   }
 
   tick() {
