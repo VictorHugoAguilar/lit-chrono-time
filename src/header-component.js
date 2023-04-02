@@ -19,7 +19,20 @@ export class HeaderComponent extends LitElement {
         type: Boolean,
         attribute: 'hidden-config',
         reflex: true
-      }
+      },
+      timeExercice: {
+        type: String,
+        attribute: 'time-exercice',
+      },
+      timeRest: {
+        type: String,
+        attribute: 'time-rest',
+      },
+      autoRunning: {
+        type: Boolean,
+        attribute: 'auto-running',
+        reflex: true
+      },
     }
   }
 
@@ -96,6 +109,9 @@ export class HeaderComponent extends LitElement {
     super();
     this.mainTitle = ''
     this.hiddenConfig = true;
+    this.timeExercice = 0;
+    this.timeRest = 0;
+    this.autoRunning = false;
   }
 
   connectedCallback() {
@@ -107,18 +123,25 @@ export class HeaderComponent extends LitElement {
     <div class="container">
       <div class="main">
         <div class="title">${this.mainTitle}</div>
-        <div class="icon"><span class="icon-config" @click="${ () => this._hiddenConfig() }">${config}</span></div>
+        <div class="icon">
+          <span class="icon-config" @click="${ () => this._hiddenConfig() }">
+          ${config}
+          </span>
+        </div>
       </div>
       <div class="config" ?hidden=${!this.hiddenConfig}>
         <div class="main-config" >
           <div class="options">
-            Time of exercice <input class="input-time" type="number" value="30">
+            <span class="title-options">Time of exercice </span>
+            <input name="time-exercice" class="input-time" type="number" value="${this.timeExercice}" @keyup="${this._changeValue}">
           </div>
           <div class="options">
-            Time of rest <input class="input-time" type="number" value="90"> 
+            <span class="title-options">Time of rest </span>
+            <input name="time-rest" class="input-time" type="number" value="${this.timeRest}" @keyup="${this._changeValue}"> 
           </div>
           <div class="options">
-            Auto-Executing <input class="input-check" type="checkbox" checked>
+            <span class="title-options">Auto-Executing </span>
+            <input name="auto-executing" class="input-check" type="checkbox" ?checked="${this.autoRunning}" @change="${this._changeValue}">
           </div>  
         </div>
       </div>
@@ -128,6 +151,37 @@ export class HeaderComponent extends LitElement {
 
   _hiddenConfig() {
     this.hiddenConfig = !this.hiddenConfig
+  }
+
+  _changeValue(e) {
+    const targetName = e.target.name;
+    if (targetName === 'time-exercice') {
+      console.log('time-exercice', e.target.value);
+      this.timeExercice = Math.abs(e.target.value);
+    }
+    if (targetName === 'time-rest') {
+      console.log('time-rest', e.target.value);
+      this.timeRest = Math.abs(e.target.value);
+
+    }
+    if (targetName === 'auto-executing') {
+      console.log('auto-executing', e.target.checked);
+      this.autoRunning = e.target.checked;
+    }
+
+    this._fireEvent('change-properties', {
+      timeExercice: this.timeExercice,
+      timeRest: this.timeRest,
+      autoRunning: this.autoRunning
+    });
+  }
+
+  _fireEvent(eventName, detail) {
+    this.dispatchEvent(new CustomEvent(eventName, {
+      detail: detail,
+      bubbles: true,
+      composed: true
+    }));
   }
 
 
