@@ -34,7 +34,7 @@ export class MainApp extends LitElement {
     this.timeExercice = 30;
     this.timeRest = 90;
     this.executing = '';
-    this.autoRunning = true;
+    this.autoRunning = false;
   }
 
   static get styles() {

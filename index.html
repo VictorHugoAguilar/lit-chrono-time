@@ -1,60 +1,53 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Workout times" />
-  <meta name="keywords" content="Workout, times, time" />
-  <meta name="author" content="Victor Hugo Aguilar" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workout times</title>
-  <link rel="icon" href="./assets/favicon.ico" type="icon" />
-  <link type="text/css" rel="stylesheet" href="assets/css/normalize.css" />
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Workout times" />
+    <meta name="keywords" content="Workout, times, time" />
+    <meta name="author" content="Victor Hugo Aguilar" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout times</title>
+    <link rel="icon" href="./assets/favicon.ico" type="icon" />
+    <link type="text/css" rel="stylesheet" href="assets/css/normalize.css" />
 
-  <!-- playground-fold -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@1,800&display=swap"
-    rel="stylesheet"
-  />
-  <script type="module" src="src/main-app.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@1,800&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    *,
-    body {
-      font-family: "JetBrains Mono", monospace;
-      margin: 0 auto;
-      background-color: rgb(187, 183, 183);
-    }
-    .container {
-      width: 100%;
-      max-width: 400px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .header {
-      padding: 10px 0px 0px 0px;
-      background-color: rgb(59, 57, 57);
-      width: 100%;
-      height: 65px;
-      color: white;
-      text-align: center;
-      font-size: 3em;
-    }
-    @media screen and (max-width: 780px) and (oriantation: landscape) {
+    <script type="module" src="./src/app.js"></script>
+
+    <style>
+      *,
       body {
-        display: none;
+        font-family: "JetBrains Mono", monospace;
+        margin: 0 auto;
+        background-color: rgb(187, 183, 183);
       }
-    }
-  </style>
-  <!-- playground-fold-end -->
-</head>
+      .container {
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
 
-<body>
-  <div class="container">
-    <div class="header">Workout Time</div>
-    <div class="main">
-      <main-app time-exercice="5" time-rest="5"></main-app>
+      @media screen and (max-width: 780px) and (oriantation: landscape) {
+        body {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header-component main-title="Workout time"></header-component>
+      <div class="main">
+        <main-app time-exercice="5" time-rest="5"></main-app>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
+</html>
