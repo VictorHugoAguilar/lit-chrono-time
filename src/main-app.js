@@ -15,7 +15,7 @@ export class MainApp extends LitElement {
       timeRest: {
         type: Number,
       },
-      autoExecuting: {
+      autoRunning: {
         type: Boolean,
       }
 
@@ -26,11 +26,14 @@ export class MainApp extends LitElement {
     super();
     this.timeExercice = 5;
     this.timeRest = 5;
-    this.autoExecuting = false;
+    this.autoRunning = true;
   }
 
   static get styles() {
-    return css ``;
+    return css `
+    * {
+      font-family: "JetBrains Mono", monospace;
+    }`;
   }
 
   connectedCallback() {
@@ -44,16 +47,38 @@ export class MainApp extends LitElement {
   render() {
     return html `
       <div>
-        <header-component main-title="Workout time"></header-component>
+        <header-component 
+          main-title="Workout time"
+          @change-properties="${(e) => this._changesProperties(e)}"
+          time-exercice="${this.timeExercice}" 
+          time-rest="${this.timeRest}" 
+          ?auto-running="${ this.autoRunning}"
+        ></header-component>
         <div class="main">
           <main-chrono 
             time-exercice="${this.timeExercice}" 
             time-rest="${this.timeRest}" 
-            ?auto-running="${ this.autoExecuting}"
+            ?auto-running="${ this.autoRunning}"
           ></main-chrono>
         </div>
       </div>
     `;
+  }
+
+  _changesProperties({
+    detail
+  }) {
+    console.log('_changesProperties', detail)
+    const {
+      timeExercice,
+      timeRest,
+      autoRunning
+    } = detail;
+    this.timeExercice = timeExercice;
+    this.timeRest = timeRest;
+    this.autoRunning = autoRunning;
+    this.requestUpdate();
+    console.log('this.timeExercice', this.timeExercice)
   }
 }
 
