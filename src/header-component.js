@@ -66,17 +66,36 @@ export class HeaderComponent extends LitElement {
     }
 
     .config{
-      height: 80px;
+      height: 90px;
       background-color: rgb(150, 148, 148);
     }
-    
+
+    .main-config {
+      display: flex;
+      flex-direction: column;
+      justify-content:  space-around;
+      align-items: start;
+      padding: 10px;
+    }
+
+    .input-time {
+      border-radius: 10px;
+      width: 30px;
+      height: 20px;
+      background-color: greenyellow;
+    }
+
+    .input-check {
+      background-color: greenyellow;
+    }
+  
   `;
   }
 
   constructor() {
     super();
     this.mainTitle = ''
-    this.hiddenConfig = false;
+    this.hiddenConfig = true;
   }
 
   connectedCallback() {
@@ -88,21 +107,27 @@ export class HeaderComponent extends LitElement {
     <div class="container">
       <div class="main">
         <div class="title">${this.mainTitle}</div>
-        <div class="icon"><span class="icon-config" @click="${ () => this.hiddenConfig = !this.hiddenConfig}">${config}</span></div>
+        <div class="icon"><span class="icon-config" @click="${ () => this._hiddenConfig() }">${config}</span></div>
       </div>
       <div class="config" ?hidden=${!this.hiddenConfig}>
-        <div class="options">
-          Time of exercice <input type="number" value="30">
+        <div class="main-config" >
+          <div class="options">
+            Time of exercice <input class="input-time" type="number" value="30">
+          </div>
+          <div class="options">
+            Time of rest <input class="input-time" type="number" value="90"> 
+          </div>
+          <div class="options">
+            Auto-Executing <input class="input-check" type="checkbox" checked>
+          </div>  
         </div>
-        <div class="options">
-          Time of rest <input type="number" value="90"> 
-        </div>
-        <div class="options">
-          Auto-Executing <input type="checkbox" checked>
-        </div>  
       </div>
     </div>
   `;
+  }
+
+  _hiddenConfig() {
+    this.hiddenConfig = !this.hiddenConfig
   }
 
 
