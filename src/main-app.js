@@ -24,8 +24,8 @@ export class MainApp extends LitElement {
 
   constructor() {
     super();
-    this.timeExercice = 5;
-    this.timeRest = 5;
+    this.timeExercice = 30;
+    this.timeRest = 90;
     this.autoRunning = true;
   }
 
