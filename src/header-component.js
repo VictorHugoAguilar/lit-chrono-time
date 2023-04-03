@@ -108,7 +108,7 @@ export class HeaderComponent extends LitElement {
   constructor() {
     super();
     this.mainTitle = ''
-    this.hiddenConfig = true;
+    this.hiddenConfig = false;
     this.timeExercice = 0;
     this.timeRest = 0;
     this.autoRunning = false;
