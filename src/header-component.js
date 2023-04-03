@@ -21,11 +21,11 @@ export class HeaderComponent extends LitElement {
         reflex: true
       },
       timeExercice: {
-        type: String,
+        type: Number,
         attribute: 'time-exercice',
       },
       timeRest: {
-        type: String,
+        type: Number,
         attribute: 'time-rest',
       },
       autoRunning: {
@@ -156,16 +156,12 @@ export class HeaderComponent extends LitElement {
   _changeValue(e) {
     const targetName = e.target.name;
     if (targetName === 'time-exercice') {
-      console.log('time-exercice', e.target.value);
       this.timeExercice = Math.abs(e.target.value);
     }
     if (targetName === 'time-rest') {
-      console.log('time-rest', e.target.value);
       this.timeRest = Math.abs(e.target.value);
-
     }
     if (targetName === 'auto-executing') {
-      console.log('auto-executing', e.target.checked);
       this.autoRunning = e.target.checked;
     }
 

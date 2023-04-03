@@ -9,10 +9,16 @@ import {
   replay
 } from "./icons.js";
 
-export class MyTimer extends LitElement {
+export class MyChrono extends LitElement {
   static get properties() {
     return {
-      duration: {},
+      name: {
+        type: String
+      },
+      duration: {
+        type: Number,
+        attribute: 'duration',
+      },
       end: {
         state: true
       },
@@ -20,10 +26,7 @@ export class MyTimer extends LitElement {
         state: true,
       },
       executing: {
-        state: false
-      },
-      name: {
-        type: String
+        state: true
       },
     }
   };
@@ -41,7 +44,6 @@ export class MyTimer extends LitElement {
       flex-direction: column;
       justify-content: space-between;
     }
-
     .time {
       font-size: 7em;
       padding-bottom: 15%;
@@ -59,7 +61,7 @@ export class MyTimer extends LitElement {
 
   constructor() {
     super();
-    this.duration = 60;
+    this.duration = 0;
     this.end = null;
     this.remaining = 0;
     this.name = "";
@@ -71,8 +73,17 @@ export class MyTimer extends LitElement {
     this.reset();
   }
 
-  update() {
-    super.update();
+  updated(changedProperties) {
+    super.updated(changedProperties)
+    if (changedProperties && changedProperties.get('duration')) {
+      this.reset();
+      this.requestUpdate();
+    }
+  }
+
+  shouldUpdate() {
+    super.shouldUpdate();
+    return true
   }
 
   render() {
@@ -107,7 +118,6 @@ export class MyTimer extends LitElement {
     let oldVal = this._remaining;
     this._remaining = val;
     this.requestUpdate("remaining", oldVal);
-    /* this.dosomething(); */
   }
 
   get remaining() {
@@ -181,7 +191,7 @@ export class MyTimer extends LitElement {
     );
   }
 }
-customElements.define("my-timer", MyTimer);
+customElements.define("my-chrono", MyChrono);
 
 function pad(pad, val) {
   return pad ? String(val).padStart(2, "0") : val;
