@@ -7,8 +7,13 @@ import {
 import './index.js';
 
 export class MainApp extends LitElement {
+
   static get properties() {
     return {
+      titleHead: {
+        type: String,
+        attribute: 'title-head',
+      },
       timeExercice: {
         type: Number,
       },
@@ -18,12 +23,12 @@ export class MainApp extends LitElement {
       autoRunning: {
         type: Boolean,
       }
-
     };
   }
 
   constructor() {
     super();
+    this.titleHead = 'Workout time'
     this.timeExercice = 30;
     this.timeRest = 90;
     this.autoRunning = true;
@@ -31,7 +36,7 @@ export class MainApp extends LitElement {
 
   static get styles() {
     return css `
-    * {
+    :host {
       font-family: "JetBrains Mono", monospace;
     }`;
   }
@@ -48,18 +53,14 @@ export class MainApp extends LitElement {
     return html `
       <div>
         <header-component 
-          main-title="Workout time"
-          @change-properties="${(e) => this._changesProperties(e)}"
-          time-exercice="${this.timeExercice}" 
-          time-rest="${this.timeRest}" 
-          ?auto-running="${ this.autoRunning}"
+          main-title=${this.titleHead}
+          @change-properties=${(e) => this._changesProperties(e)}
+          time-exercice=${this.timeExercice}
+          time-rest=${this.timeRest}
+          ?auto-running=${ this.autoRunning}
         ></header-component>
         <div class="main">
-          <main-chrono 
-            time-exercice="${this.timeExercice}" 
-            time-rest="${this.timeRest}" 
-            ?auto-running="${ this.autoRunning}"
-          ></main-chrono>
+          ${this._tlpChrono}
         </div>
       </div>
     `;
@@ -68,7 +69,6 @@ export class MainApp extends LitElement {
   _changesProperties({
     detail
   }) {
-    console.log('_changesProperties', detail)
     const {
       timeExercice,
       timeRest,
@@ -77,9 +77,27 @@ export class MainApp extends LitElement {
     this.timeExercice = timeExercice;
     this.timeRest = timeRest;
     this.autoRunning = autoRunning;
-    this.requestUpdate();
-    console.log('this.timeExercice', this.timeExercice)
   }
+
+  get _tlpChrono() {
+    return html ` <main-chrono 
+    time-exercice=${this.timeExercice}
+    time-rest=${this.timeRest}
+    ?auto-running=${ this.autoRunning}
+  ></main-chrono>`
+  }
+
+  // updated(changedProperties) {
+  //   if (changedProperties && changedProperties.get('timeExercice')) {
+  //     this.requestUpdate();
+  //   }
+  //   if (changedProperties && changedProperties.get('timeRest')) {
+  //     this.requestUpdate();
+  //   }
+  //   if (changedProperties && changedProperties.get('autoRunning')) {
+  //     this.requestUpdate();
+  //   }
+  // }
 }
 
 customElements.define("main-app", MainApp);

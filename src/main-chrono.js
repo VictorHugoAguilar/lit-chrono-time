@@ -41,6 +41,9 @@ export class MainChrono extends LitElement {
 
   static get styles() {
     return css `
+      :host{
+        font-family: "JetBrains Mono", monospace;
+      },
       .container {
         width: 100%;
       }
@@ -53,7 +56,6 @@ export class MainChrono extends LitElement {
     this.listenerEventLaunch = this.executeLaunch.bind(this);
     this.addEventListener("start", this.listenerEventStart);
     this.addEventListener("launch", this.listenerEventLaunch);
-    console.log("chrone this.autoRunning => ", this.autoRunning);
   }
 
   disconnectedCallback() {
@@ -65,14 +67,14 @@ export class MainChrono extends LitElement {
   executeStart({
     detail
   }) {
-    console.log("start manual", detail);
+    console.info("start manual", detail);
     this.execute(detail);
   }
 
   executeLaunch({
     detail
   }) {
-    console.log("start automatic", detail);
+    console.info("start automatic", detail);
     this.execute(detail);
   }
 
@@ -83,38 +85,45 @@ export class MainChrono extends LitElement {
    */
   execute(nameEvent) {
     this.executing = nameEvent;
-    console.log('executing -> ', this.executing)
+    console.info('executing -> ', this.executing)
     if (this.executing === "exercise") {
-      console.log('start manual exercise')
+      console.info('start manual exercise')
       this.shadowRoot.querySelector("#exercise").start();
       this.shadowRoot.querySelector("#exercise").reset();
       this.shadowRoot.querySelector("#rest").stop();
     }
     if (this.executing === "rest") {
-      console.log('start manual rest')
+      console.info('start manual rest')
       this.shadowRoot.querySelector("#rest").reset();
       this.shadowRoot.querySelector("#rest").start();
       this.shadowRoot.querySelector("#exercise").stop();
     }
     if (this.autoRunning && this.executing === "finished-exercise") {
-      console.log('finished-exercise start rest')
+      console.info('finished-exercise start rest')
       this.shadowRoot.querySelector("#rest").reset();
       this.shadowRoot.querySelector("#rest").start();
       this.shadowRoot.querySelector("#exercise").stop();
     }
     if (this.autoRunning && this.executing === "finished-rest") {
-      console.log('finished-exercise start exercise')
+      console.info('finished-exercise start exercise')
       this.shadowRoot.querySelector("#exercise").start();
       this.shadowRoot.querySelector("#exercise").reset();
       this.shadowRoot.querySelector("#rest").stop();
     }
   }
 
+  updated(changedProperties) {
+    if (changedProperties && changedProperties.get('timeExercice')) {
+      console.info('changes', this.timeExercice)
+      this.requestUpdate();
+    }
+  }
+
   render() {
     return html `
       <div class="container">
-        <my-timer id="exercise" class="exercise" duration=${this.timeExercice} name="exercise"></my-timer>
-        <my-timer id="rest" class="rest" duration=${this.timeRest} name="rest"></my-timer>
+        <my-chrono id="exercise" class="exercise" duration=${this.timeExercice} name="exercise"></my-chrono>
+        <my-chrono id="rest" class="rest" duration=${this.timeRest} name="rest"></my-chrono>
       </div>
     `;
   }
