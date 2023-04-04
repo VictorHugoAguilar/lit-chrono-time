@@ -176,12 +176,15 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   updated(changedProperties) {
     super.updated(changedProperties)
     if (changedProperties && changedProperties.get('totalTime')) {
-      console.log('progress change atribute totalTime ')
+      console.info('progress change atribute totalTime ', {
+        totalTime: this.totalTime,
+        totalTimeElapsed: this.totalElapsed
+      })
       this._calculteProgress();
       this.requestUpdate();
     }
     if (changedProperties && changedProperties.get('totalElapsed')) {
-      console.log('progress change atribute totalElapsed ', {
+      console.info('progress change atribute totalElapsed ', {
         totalTime: this.totalTime,
         totalTimeElapsed: this.totalElapsed
       })
