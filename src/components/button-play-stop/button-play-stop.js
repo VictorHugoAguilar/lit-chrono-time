@@ -12,6 +12,25 @@ import '../button-play-stop/progressbar.js';
 
 import styles from './button-play-stop-styles.js';
 
+/**
+ * Buttons play stop
+ * @description Buttons play stop
+ * @customElement button-play-stop
+ * 
+ * @property { String } name - name of buttons posibility default| training | resting | preparing | cooling @default default 
+ * @property { Number } totalTime - total time
+ * @property { Number } totalElapsed - total time elapsed
+ * @property { String } status - status of buttons @default stopped
+ * @property { String } widthButton - width of buttons @default 100px
+ * @property { String } heightButton - heightButton of buttons @default 100px
+ * @property { String } progressBarBackgroundColor - background progress bar @default #7F7E7E
+ * @property { String } progressBarColor - color progress bar @default #4EFF00
+ * @property { Boolean } _demo - active demo @default false
+ * 
+ * @fire button-play-stop#change-status - launch event with new status
+ * 
+ * @author Victor Hugo Aguilar Aguilar
+ */
 export class ButtonPlayStop extends FireEventMixin(LitElement) {
   static get is() {
     return 'button-play-stop';
@@ -20,7 +39,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   static get properties() {
     return {
       /**
-       * button name type: default | training | resting | preparing | cooling
+       * Name buttons type: default | training | resting | preparing | cooling
        * @description property name the button to show
        * @enum default | training | resting | preparing | cooling
        * @default default
@@ -29,34 +48,64 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
         type: String,
         attribute: 'name',
       },
+      /**
+       * Total time
+       */
       totalTime: {
         type: Number,
         attribute: 'total-time',
       },
+      /**
+       * Total time elapsed
+       */
       totalElapsed: {
         type: Number,
         attribute: 'total-elapsed',
       },
+      /**
+       * Status of buttons stopped | playing
+       * @default stopped
+       */
       status: {
         type: 'String',
         attribute: 'status'
       },
+      /**
+       * Width buttons
+       * @default 100px
+       */
       widthButton: {
         type: String,
         attribute: 'width-button'
       },
+      /**
+       * Height buttons
+       * @default 100px
+       */
       heightButton: {
         type: String,
         attribute: 'height-button'
       },
+      /**
+       * Background color progress bar
+       * @default #7F7E7E
+       */
       progressBarBackgroundColor: {
         type: String,
         attribute: 'progress-bar-background-color',
       },
+      /**
+       * Forecolor progress bar
+       * @default #4EFF00
+       */
       progressBarColor: {
         type: String,
         attribute: 'progress-bar-color',
       },
+      /**
+       * Buttons demos active
+       * @default false
+       */
       _demo: {
         type: Boolean,
         reflect: true,
@@ -132,7 +181,10 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
       this.requestUpdate();
     }
     if (changedProperties && changedProperties.get('totalElapsed')) {
-      console.log('progress change atribute totalElapsed ')
+      console.log('progress change atribute totalElapsed ', {
+        totalTime: this.totalTime,
+        totalTimeElapsed: this.totalElapsed
+      })
       this._calculteProgress();
       this.requestUpdate();
     }
@@ -204,6 +256,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
     this.fireEvent('change-status', {
       detail: this.status
     })
+    this.fireEvent('click')
     return true;
   }
 
@@ -216,8 +269,6 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
       });
     }
   }
-
-
 }
 
 customElements.define(ButtonPlayStop.is, ButtonPlayStop);
