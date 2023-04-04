@@ -1,6 +1,7 @@
 import {
   LitElement,
   html,
+  css,
   svg
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
@@ -53,11 +54,11 @@ export class ButtonActive extends FireEventMixin(LitElement) {
        */
       type: {
         type: String,
-        attribute: 'type-button'
+        attribute: 'type'
       },
       /**
        * Status of buttons activated | disabled
-       * @default desactivated
+       * @default disabled
        */
       status: {
         type: String,
@@ -105,7 +106,7 @@ export class ButtonActive extends FireEventMixin(LitElement) {
   }
 
   firstUpdated() {
-
+    console.log('this.type', this.type)
   }
 
   updated(changedProperties) {
@@ -128,19 +129,28 @@ export class ButtonActive extends FireEventMixin(LitElement) {
             class="toggle" 
             ?checked=${this.activated} 
             @change=${ (e) => this._changeStatus(e)}
+            style=${this._styles}
           />
       </div>
     `;
   }
 
 
+  get _styles() {
+    if (this.activated) {
+      return css `
+        border-color: ${this._colorIcon[this.type]}
+      `
+    }
+  }
+
   get _colorIcon() {
     return {
-      default: '#4EFF00',
-      training: '#4EFF00',
-      resting: '#EB0303',
-      preparing: '#ECF80A',
-      cooling: '#08E5FF',
+      default: css `#4EFF00`,
+      training: css `#4EFF00`,
+      resting: css `#EB0303`,
+      preparing: css `#ECF80A`,
+      cooling: css `#08E5FF`,
     }
   }
 
@@ -149,11 +159,9 @@ export class ButtonActive extends FireEventMixin(LitElement) {
     this.activated = checked;
     this.status = checked ? 'activated' : 'disabled';
     this.fireEvent('change-status-button-active', {
-      detail: {
-        name: this.name,
-        status: this.status,
-        activated: this.activated
-      }
+      name: this.name,
+      status: this.status,
+      activated: this.activated
     })
     return true;
   }

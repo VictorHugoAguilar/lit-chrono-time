@@ -56,10 +56,6 @@ export default css `
     transition: all .2s cubic-bezier(.5,.1,.75,1.35);
   }
 
-  .toggle:checked {
-    border-color: #654FEC;
-  }
-
   .toggle:checked::after {
     transform: translatex(20px);
   }
