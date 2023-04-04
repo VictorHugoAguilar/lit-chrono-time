@@ -17,7 +17,8 @@ import styles from './button-play-stop-styles.js';
  * @description Buttons play stop
  * @customElement button-play-stop
  * 
- * @property { String } name - name of buttons posibility default| training | resting | preparing | cooling @default default 
+ * @property { String } name - name of component buttons
+ * @property { String } type - type of buttons posibility default| training | resting | preparing | cooling @default default 
  * @property { Number } totalTime - total time
  * @property { Number } totalElapsed - total time elapsed
  * @property { String } status - status of buttons @default stopped
@@ -39,14 +40,21 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   static get properties() {
     return {
       /**
-       * Name buttons type: default | training | resting | preparing | cooling
-       * @description property name the button to show
-       * @enum default | training | resting | preparing | cooling
-       * @default default
+       * Name of component buttons
        */
       name: {
         type: String,
         attribute: 'name',
+      },
+      /**
+       * Type buttons: default | training | resting | preparing | cooling
+       * @description property name the button to show
+       * @enum default | training | resting | preparing | cooling
+       * @default default
+       */
+      type: {
+        type: String,
+        attribute: 'type',
       },
       /**
        * Total time
@@ -121,7 +129,8 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
 
   constructor() {
     super();
-    this.name = 'default';
+    this.name = '';
+    this.type = 'default';
     this.totalTime = 0;
     this.totalElapsed = 0;
     this.status = 'stopped';
@@ -130,7 +139,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
     this.heightButton = '100';
 
     this.progressBarBackgroundColor = '#7F7E7E';
-    this.progressBarColor = this._colorIcon[this.name];
+    this.progressBarColor = this._colorIcon[this.type];
 
     this.circleBar = null;
     this.circleProgress = '0';
@@ -142,7 +151,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
 
-    this.progressBarColor = this._colorIcon[this.name];
+    this.progressBarColor = this._colorIcon[this.type];
 
     // launch demo interval
     this._demoEvent = this._demo ? setInterval(() => {
@@ -223,7 +232,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
         height="${this.heightButton * 0.8}px"
         width="${this.widthButton * 0.8}px"
         viewBox="0 0 24 24"
-        fill="${this._colorIcon[this.name]}"
+        fill="${this._colorIcon[this.type]}"
         >${this._icon}</svg>`
   }
 
@@ -257,9 +266,12 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   _changeStatus() {
     this.status = this.status === 'playing' ? 'stopped' : 'playing'
     this.fireEvent('change-status', {
-      detail: this.status
+      name: this.name,
+      status: this.status
     })
-    this.fireEvent('click')
+    this.fireEvent('click-status', {
+      name: this.name,
+    })
     return true;
   }
 
