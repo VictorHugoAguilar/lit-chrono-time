@@ -15,34 +15,13 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@1,800&display=swap"
       rel="stylesheet"
     />
-
-    <script type="module" src="./app.js"></script>
-
-    <style>
-      *,
-      body {
-        font-family: "JetBrains Mono", monospace;
-        margin: 0 auto;
-        background-color: rgb(187, 183, 183);
-      }
-      .container {
-        width: 100%;
-        max-width: 400px;
-        height: 100%;
-        overflow: hidden;
-      }
-
-      @media screen and (max-width: 780px) and (oriantation: landscape) {
-        body {
-          display: none;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./src/styles.css" />
   </head>
 
   <body>
     <div class="container">
       <main-app></main-app>
     </div>
+    <script type="module" src="./app.js"></script>
   </body>
 </html>

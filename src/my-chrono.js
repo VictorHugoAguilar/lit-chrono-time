@@ -28,34 +28,45 @@ export class MyChrono extends LitElement {
       executing: {
         state: true
       },
+      _titleTime: {
+        type: String
+      }
     }
   };
 
   static get styles() {
     return css `
-    /* playground-fold */
-    :host {
-      width: 100%;
-      display: inline-block;
-      text-align: center;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .time {
-      font-size: 7em;
-      padding-bottom: 15%;
-      padding-top: 15%;
-      user-select: none;
-    }
-    .control {
-      user-select: none;
-      background-color: #969494;
-      padding: 20px 0px 20px 0px;
-    }
-    /* playground-fold-end */
+      :host {
+        display: inline-block;
+        width: 100%;
+      }
+      .my-chrono-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: thin solid yellow;
+      }
+      .my-chrono-main {
+        border: thin solid red;
+        user-select: none;
+      }
+      .my-chrono-main-title{
+        border: thin solid red;
+        font-size: 3em;
+        text-transform: uppercase;
+      }
+      .my-chrono-main-time {
+        border: thin solid red;
+        padding: 25px 0px 10px 0px;
+        font-size: 7em;
+      }
+      .my-chrono-control {
+        user-select: none;
+        background-color: #969494;
+        padding: 10px 0px 10px 0px;
+        color: white;
+      }
   `;
   }
 
@@ -95,14 +106,19 @@ export class MyChrono extends LitElement {
     const sec = pad(min, Math.floor((remaining / 1000) % 60));
     const hun = pad(true, Math.floor((remaining % 1000) / 10));
 
-    const mainColor = remaining <= 5000 ? this._warningStyle : css `greenyellow`;
+    const mainColor = remaining <= 5000 ? this._warningStyle : css `background-color: greenyellow`;
 
     return html `
-      <div class="container">
-        <div class="time" style="background-color:${mainColor}">
-          ${min ? `${min}:${sec}` : `${sec}.${hun}`}
+      <div class="my-chrono-container">
+        <div class="my-chrono-main" style="${mainColor}">
+          <div class="my-chrono-main-title">
+            ${this._titleTime}
+          </div>
+          <div class="my-chrono-main-time">
+            ${min ? `${min}:${sec}` : `${sec}.${hun}`}
+          </div>
         </div>
-        <div class="control">
+        <div class="my-chrono-control">
           ${remaining === 0
             ? ""
             : running
@@ -135,12 +151,9 @@ export class MyChrono extends LitElement {
 
   get _colorRefresh() {
     return {
-      0: css `
-            red `,
-      1: css `
-            yellow `,
-      2: css `
-            greenyellow `,
+      0: css `background-color: red; color: black`,
+      1: css `background-color: yellow; color: black`,
+      2: css `background-color: greenyellow; color: black `,
     }
   }
 
@@ -178,6 +191,19 @@ export class MyChrono extends LitElement {
     if (this.running) {
       this.remaining = Math.max(0, this.end - Date.now());
       requestAnimationFrame(() => this.tick());
+    }
+  }
+
+  get _titleTime() {
+    return this._traductionTitleTime[this.name];
+  }
+
+  get _traductionTitleTime() {
+    return {
+      exercise: 'Entrenar',
+      rest: 'Descansar',
+      prepare: 'Preparar',
+      cooling: 'Enfriamiento',
     }
   }
 

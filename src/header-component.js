@@ -5,8 +5,10 @@ import {
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
 import {
-  config
+  config, replay
 } from "./icons.js";
+
+import './index.js'
 
 export class HeaderComponent extends LitElement {
   static get properties() {
@@ -60,7 +62,7 @@ export class HeaderComponent extends LitElement {
     }
     
     .title {
-      width: 90%;
+      width: 80%;
       text-align: center;
       font-size: 2.5em;
       color: white;
@@ -75,7 +77,19 @@ export class HeaderComponent extends LitElement {
     }
     
     .icon-config{
+      width: 40px;
+      height: 40px;
       color: greenyellow;
+      border: 2px solid greenyellow;
+      border-radius: 100%; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .icon-config svg {
+      width: 24px;
+      height: 24px;
     }
 
     .config{
@@ -122,12 +136,20 @@ export class HeaderComponent extends LitElement {
     return html `
     <div class="container">
       <div class="main">
-        <div class="title">${this.mainTitle}</div>
         <div class="icon">
           <span class="icon-config" @click="${ () => this._hiddenConfig() }">
           ${config}
           </span>
         </div>
+        <div class="title">
+          <round-component></round-component>
+        </div>
+        <div class="icon">
+        <span class="icon-config" @click="${ () => this._hiddenConfig() }">
+        ${replay}
+        </span>
+      </div>
+
       </div>
       <div class="config" ?hidden=${!this.hiddenConfig}>
         <div class="main-config" >

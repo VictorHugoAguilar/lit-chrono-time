@@ -1,0 +1,20 @@
+*,
+body {
+  font-family: "JetBrains Mono", monospace;
+  margin: 0 auto;
+  background-color: rgb(187, 183, 183);
+}
+.container {
+  width: 100%;
+  max-width: 400px;
+  max-height: 881px;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 780px) and (oriantation: landscape) {
+  body {
+    display: none;
+  }
+}
+
