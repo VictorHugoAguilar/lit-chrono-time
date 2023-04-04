@@ -27,7 +27,7 @@ export const FireEventMixin = Base =>
      * @param {String} name 
      * @param {Object} detail 
      */
-    fireEvent(name, detail) {
+    fireEvent(name, detail = {}) {
       console.warn('lauch event from mixin FireEvent', detail)
       this.dispatchEvent(
         new CustomEvent(name, {
