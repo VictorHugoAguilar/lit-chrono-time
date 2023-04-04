@@ -9,26 +9,20 @@ import {
   FireEventMixin
 } from '../mixins/fire-events.js';
 
-import '../button-play-stop/progressbar.js';
-
 import styles from './button-active-styles.js';
 
 /**
- * Buttons play stop
- * @description Buttons play stop
+ * Buttons actived
+ * @description Buttons for actived or disable
  * @customElement button-play-stop
  * 
- * @property { String } name - name of buttons posibility default| training | resting | preparing | cooling @default default 
- * @property { Number } totalTime - total time
- * @property { Number } totalElapsed - total time elapsed
- * @property { String } status - status of buttons @default stopped
- * @property { String } widthButton - width of buttons @default 100px
- * @property { String } heightButton - heightButton of buttons @default 100px
- * @property { String } progressBarBackgroundColor - background progress bar @default #7F7E7E
- * @property { String } progressBarColor - color progress bar @default #4EFF00
- * @property { Boolean } _demo - active demo @default false
+ * @property { String } name - name of buttons
+ * @property { String } type - name of buttons posibility default| training | resting | preparing | cooling @default default 
+ * @property { String } status - status of buttons @default disable
+ * @property { Boolean } activate - activated or not button @default false
+ * @property { String } size - sizr of buttons @default small
  * 
- * @fire button-play-stop#change-status - launch event with new status
+ * @fire change-status-button-active#click - launch event with new status
  * 
  * @author Victor Hugo Aguilar Aguilar
  */
@@ -73,7 +67,7 @@ export class ButtonActive extends FireEventMixin(LitElement) {
         attribute: 'size',
       },
       /**
-       * Active or Desactive buttons
+       * Active or disabled buttons
        * @default false
        */
       activated: {
@@ -106,7 +100,7 @@ export class ButtonActive extends FireEventMixin(LitElement) {
   }
 
   firstUpdated() {
-    console.log('this.type', this.type)
+    console.warn('type of buttons ', this.type)
   }
 
   updated(changedProperties) {

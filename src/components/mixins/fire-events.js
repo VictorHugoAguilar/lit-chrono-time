@@ -1,6 +1,6 @@
 /**
  * Mixin lauch event customs
- * @param {*} Base 
+ * @param { Object } Base 
  */
 export const FireEventMixin = Base =>
   class FireEvent extends Base {

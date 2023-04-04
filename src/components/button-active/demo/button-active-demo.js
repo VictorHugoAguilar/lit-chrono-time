@@ -107,7 +107,6 @@ export class DemoButtonActive extends LitElement {
 
         </div>
 
-        <div class="result"> </div>
       </div>
     `;
   }
@@ -121,9 +120,10 @@ export class DemoButtonActive extends LitElement {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
       detail: e.detail
-      
+
     })
   }
+
 
 }
 

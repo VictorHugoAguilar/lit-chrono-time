@@ -16,7 +16,6 @@ export default css `
     justify-content: center;
     align-items: center;
     padding: 5px;
-    border: thin solid red;
   }
 
   input[type="checkbox"] {
