@@ -69,6 +69,12 @@ export class ButtonPlayStop extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    this.progressBarColor = this._colorIcon[this.name];
+
+    setInterval(() => {
+      this.totalElapsed++
+    }, 1000)
   }
 
   firstUpdated() {
@@ -83,15 +89,19 @@ export class ButtonPlayStop extends LitElement {
     this.circleBar.animate(this.circleProgress, {
       duration: 1500
     });
+
+    this._calculteProgress();
   }
 
   updated(changedProperties) {
     super.updated(changedProperties)
     if (changedProperties && changedProperties.get('totalTime')) {
+      console.log('progress change atribute totalTime ')
       this._calculteProgress();
       this.requestUpdate();
     }
     if (changedProperties && changedProperties.get('totalElapsed')) {
+      console.log('progress change atribute totalElapsed ')
       this._calculteProgress();
       this.requestUpdate();
     }
@@ -165,8 +175,14 @@ export class ButtonPlayStop extends LitElement {
   }
 
   _calculteProgress() {
-    this.circleProgress = (this.totalElapsed * 100) / this.totalTime;
-    console.log('circlepprogress', this.circleProgress)
+    this.circleProgress = ((this.totalElapsed * 100) / this.totalTime) / 100;
+    console.log(this.circleProgress)
+    console.log('circlepprogress', Math.round(this.circleProgress * 100) / 100)
+    if (this.circleProgress <= 1) {
+      this.circleBar.animate(this.circleProgress, {
+        duration: 1000
+      });
+    }
   }
 
   fireEvent(name, detail) {
