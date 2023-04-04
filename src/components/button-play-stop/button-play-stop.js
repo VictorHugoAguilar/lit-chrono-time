@@ -4,16 +4,30 @@ import {
   svg
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
-import styles from './button-play-stop-styles.js';
+import {
+  FireEventMixin
+} from '../mixins/fire-events.js';
 
 import '../button-play-stop/progressbar.js';
 
-export class ButtonPlayStop extends LitElement {
+import styles from './button-play-stop-styles.js';
+
+export class ButtonPlayStop extends FireEventMixin(LitElement) {
+  static get is() {
+    return 'button-play-stop';
+  }
+
   static get properties() {
     return {
+      /**
+       * button name type: default | training | resting | preparing | cooling
+       * @description property name the button to show
+       * @enum default | training | resting | preparing | cooling
+       * @default default
+       */
       name: {
         type: String,
-        attribute: 'name'
+        attribute: 'name',
       },
       totalTime: {
         type: Number,
@@ -42,7 +56,13 @@ export class ButtonPlayStop extends LitElement {
       progressBarColor: {
         type: String,
         attribute: 'progress-bar-color',
-      }
+      },
+      _demo: {
+        type: Boolean,
+        reflect: true,
+        attribute: 'demo'
+      },
+      _demoEvent: {}
     }
   };
 
@@ -65,6 +85,9 @@ export class ButtonPlayStop extends LitElement {
 
     this.circleBar = null;
     this.circleProgress = '0';
+
+    this._demo = false;
+    this._demoEvent = {};
   }
 
   connectedCallback() {
@@ -72,9 +95,17 @@ export class ButtonPlayStop extends LitElement {
 
     this.progressBarColor = this._colorIcon[this.name];
 
-    setInterval(() => {
+    // launch demo interval
+    this._demoEvent = this._demo ? setInterval(() => {
       this.totalElapsed++
-    }, 1000)
+    }, 1000) : {};
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    // remove demo interval
+    this._demo ? clearInterval(this._demoEvent) : null;
   }
 
   firstUpdated() {
@@ -170,14 +201,15 @@ export class ButtonPlayStop extends LitElement {
 
   _changeStatus() {
     this.status = this.status === 'playing' ? 'stopped' : 'playing'
-    console.log('cambiando', this.status)
+    this.fireEvent('change-status', {
+      detail: this.status
+    })
     return true;
   }
 
   _calculteProgress() {
-    this.circleProgress = ((this.totalElapsed * 100) / this.totalTime) / 100;
-    console.log(this.circleProgress)
-    console.log('circlepprogress', Math.round(this.circleProgress * 100) / 100)
+    const percentCalculate = Math.round(((this.totalElapsed * 100) / this.totalTime) * 100) / 10000;
+    this.circleProgress = percentCalculate;
     if (this.circleProgress <= 1) {
       this.circleBar.animate(this.circleProgress, {
         duration: 1000
@@ -185,15 +217,7 @@ export class ButtonPlayStop extends LitElement {
     }
   }
 
-  fireEvent(name, detail) {
-    this.dispatchEvent(
-      new CustomEvent(name, {
-        composed: true,
-        bubbles: true,
-        detail,
-      })
-    );
-  }
+
 }
 
-customElements.define("button-play-stop", ButtonPlayStop);
+customElements.define(ButtonPlayStop.is, ButtonPlayStop);
