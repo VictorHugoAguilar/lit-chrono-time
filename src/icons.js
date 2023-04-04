@@ -8,7 +8,7 @@ export const replay = html `<svg
   height="48px"
   width="48px"
   viewBox="0 0 24 24"
-  fill="#ffffff"
+  fill="currentColor"
 >
   <title>Replay</title>
   <g>
@@ -28,7 +28,7 @@ export const pause = html `<svg
   height="48px"
   viewBox="0 0 24 24"
   width="48px"
-  fill="#ffffff"
+  fill="currentColor"
 >
   <title>Pause</title>
   <path d="M0 0h24v24H0V0z" fill="none" />
@@ -39,7 +39,7 @@ export const play = html `<svg
   height="48px"
   viewBox="0 0 24 24"
   width="48px"
-  fill="#ffffff"
+  fill="currentColor"
 >
   <title>Play</title>
   <path d="M0 0h24v24H0V0z" fill="none" />

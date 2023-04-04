@@ -95,6 +95,8 @@ export class MyChrono extends LitElement {
     const sec = pad(min, Math.floor((remaining / 1000) % 60));
     const hun = pad(true, Math.floor((remaining % 1000) / 10));
 
+    // const transcurrido = this.duration - Math.round(this.remaining / 1000);
+    // console.info('time elapsed ', transcurrido);
     const mainColor = remaining <= 5000 ? this._warningStyle : css `greenyellow`;
 
     return html `
