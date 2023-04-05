@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "dev": "wds --watch",
+    "dev": "wds --node-resolve --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Victor Hugo Aguilar Aguilar",
   "license": "ISC",
   "dependencies": {
-    "lit": "^2.6.1",
+    "lit": "^2.7.1",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

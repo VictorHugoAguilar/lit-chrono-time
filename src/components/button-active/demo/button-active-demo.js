@@ -1,8 +1,6 @@
-import {
-  LitElement,
-  html,
-  css,
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, css, } from "lit";
+
+// import 'redcockroach-toast-event-lauch/redcockroach-toast-event.js'
 
 export class DemoButtonActive extends LitElement {
   static get is() {
@@ -19,6 +17,7 @@ export class DemoButtonActive extends LitElement {
 
   constructor() {
     super();
+    this._events = ['change-status-button-active'];
   }
 
   connectedCallback() {
@@ -107,6 +106,7 @@ export class DemoButtonActive extends LitElement {
 
         </div>
 
+        <!-- <redcockroach-toast-event .events=${this._events}></redcockroach-toast-event> -->
       </div>
     `;
   }
@@ -120,7 +120,6 @@ export class DemoButtonActive extends LitElement {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
       detail: e.detail
-
     })
   }
 

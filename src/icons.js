@@ -1,6 +1,4 @@
-import {
-  html
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { html } from "lit";
 
 export const replay = html `<svg
   xmlns="http://www.w3.org/2000/svg"

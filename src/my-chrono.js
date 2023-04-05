@@ -1,13 +1,6 @@
-import {
-  LitElement,
-  html,
-  css
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
-import {
-  play,
-  pause,
-  replay
-} from "./icons.js";
+import { LitElement, html, css } from "lit";
+
+import { play, pause, replay } from "./icons.js";
 
 export class MyChrono extends LitElement {
   static get properties() {

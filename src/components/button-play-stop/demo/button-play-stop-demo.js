@@ -1,10 +1,6 @@
-import {
-  LitElement,
-  html,
-  css
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, css } from "lit";
 
-
+// import 'redcockroach-toast-event-lauch/redcockroach-toast-event.js'
 import '../button-play-stop.js';
 
 export class DemoButtonPlayStop extends LitElement {
@@ -13,7 +9,11 @@ export class DemoButtonPlayStop extends LitElement {
   }
 
   static get properties() {
-    return {}
+    return {
+      timeDemo: {
+        type: Number
+      }
+    }
   };
 
   static get styles() {
@@ -32,32 +32,35 @@ export class DemoButtonPlayStop extends LitElement {
 
   constructor() {
     super();
+    this._events = ['click-status', 'change-status']
+    this.timeDemo = 0;
   }
 
   connectedCallback() {
     super.connectedCallback();
 
-    // launch demo interval
-    // this._demoEvent = this._demo ? setInterval(() => {
-    //   this.totalElapsed++
-    // }, 1000) : {};
+    // set demo interval
+    this._demoEvent = setInterval(() => {
+      this.timeDemo += 1;
+    }, 1000);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
 
     // remove demo interval
-    // this._demo ? clearInterval(this._demoEvent) : null;
+    clearInterval(this._demoEvent);
   }
 
-  firstUpdated() {}
+  firstUpdated() {
+    console.log('timeDemo', this.timeDemo)
+
+  }
 
   updated(changedProperties) {
     super.updated(changedProperties)
-    if (changedProperties && changedProperties.get('totalTime')) {
-      this.requestUpdate();
-    }
-    if (changedProperties && changedProperties.get('totalElapsed')) {
+    if (changedProperties && changedProperties.get('timeDemo')) {
+      console.log('timeDemo', this.timeDemo)
       this.requestUpdate();
     }
   }
@@ -72,7 +75,7 @@ export class DemoButtonPlayStop extends LitElement {
       <button-play-stop
         name="demo without type"
         total-time="30"
-        total-elapsed="15"
+        total-elapsed=${this.timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
@@ -81,7 +84,7 @@ export class DemoButtonPlayStop extends LitElement {
         name="demo resting"
         type="resting"
         total-time="90"
-        total-elapsed="15"
+        total-elapsed=${this.timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
@@ -91,7 +94,7 @@ export class DemoButtonPlayStop extends LitElement {
         name="demo preparing"
         type="preparing"
         total-time="30"
-        total-elapsed="5"
+        total-elapsed=${this.timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
@@ -100,10 +103,12 @@ export class DemoButtonPlayStop extends LitElement {
         name="demo cooling"
         type="cooling"
         total-time="60"
-        total-elapsed="50"
+        total-elapsed=${this.timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
+
+      <!-- <redcockroach-toast-event .events=${this._events}></redcockroach-toast-event> -->
 
     </div>`;
   }
@@ -133,7 +138,6 @@ export class DemoButtonPlayStop extends LitElement {
 
     })
   }
-
 }
 
 customElements.define(DemoButtonPlayStop.is, DemoButtonPlayStop);
