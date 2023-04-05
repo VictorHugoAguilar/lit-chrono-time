@@ -82,6 +82,7 @@ export class ButtonActive extends MonitoringMixin(FireEventMixin(LitElement)) {
     this.activated = false;
     this.status = 'disabled'
 
+    // this.monitor = true;
   }
 
   connectedCallback() {
@@ -93,7 +94,7 @@ export class ButtonActive extends MonitoringMixin(FireEventMixin(LitElement)) {
   }
 
   firstUpdated() {
-    this.monitor('type of buttons ', this.type);
+    this.monitoring('type of buttons ', 'default', this.type);
   }
 
   updated(changedProperties) {
