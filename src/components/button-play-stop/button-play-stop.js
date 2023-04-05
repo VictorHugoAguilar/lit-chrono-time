@@ -1,12 +1,6 @@
-import {
-  LitElement,
-  html,
-  svg
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, svg } from "lit";
 
-import {
-  FireEventMixin
-} from '../mixins/fire-events.js';
+import { FireEventMixin } from '../mixins/fire-events.js';
 
 import '../button-play-stop/progressbar.js';
 

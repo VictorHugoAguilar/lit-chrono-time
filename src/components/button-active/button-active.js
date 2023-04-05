@@ -1,13 +1,6 @@
-import {
-  LitElement,
-  html,
-  css,
-  svg
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, css } from "lit";
 
-import {
-  FireEventMixin
-} from '../mixins/fire-events.js';
+import { FireEventMixin } from '../mixins/fire-events.js';
 
 import styles from './button-active-styles.js';
 
