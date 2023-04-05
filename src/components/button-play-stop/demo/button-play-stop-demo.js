@@ -10,9 +10,9 @@ export class DemoButtonPlayStop extends LitElement {
 
   static get properties() {
     return {
-      timeDemo: {
+      _timeDemo: {
         type: Number
-      }
+      },
     }
   };
 
@@ -32,8 +32,9 @@ export class DemoButtonPlayStop extends LitElement {
 
   constructor() {
     super();
-    this._events = ['click-status', 'change-status']
-    this.timeDemo = 0;
+    // this._events = ['click-status', 'change-status']
+    this._demoEvent = null;
+    this._timeDemo = 0;
   }
 
   connectedCallback() {
@@ -41,7 +42,7 @@ export class DemoButtonPlayStop extends LitElement {
 
     // set demo interval
     this._demoEvent = setInterval(() => {
-      this.timeDemo += 1;
+      this._timeDemo += 1;
     }, 1000);
   }
 
@@ -52,15 +53,13 @@ export class DemoButtonPlayStop extends LitElement {
     clearInterval(this._demoEvent);
   }
 
-  firstUpdated() {
-    console.log('timeDemo', this.timeDemo)
-
+  firstUpdated(changedProps) {
+    super.firstUpdated && super.firstUpdated(changedProps);
   }
 
   updated(changedProperties) {
     super.updated(changedProperties)
-    if (changedProperties && changedProperties.get('timeDemo')) {
-      console.log('timeDemo', this.timeDemo)
+    if (changedProperties && changedProperties.get('_timeDemo')) {
       this.requestUpdate();
     }
   }
@@ -75,7 +74,7 @@ export class DemoButtonPlayStop extends LitElement {
       <button-play-stop
         name="demo without type"
         total-time="30"
-        total-elapsed=${this.timeDemo}
+        total-elapsed=${this._timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
@@ -84,7 +83,7 @@ export class DemoButtonPlayStop extends LitElement {
         name="demo resting"
         type="resting"
         total-time="90"
-        total-elapsed=${this.timeDemo}
+        total-elapsed=${this._timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
@@ -94,7 +93,7 @@ export class DemoButtonPlayStop extends LitElement {
         name="demo preparing"
         type="preparing"
         total-time="30"
-        total-elapsed=${this.timeDemo}
+        total-elapsed=${this._timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
@@ -103,13 +102,12 @@ export class DemoButtonPlayStop extends LitElement {
         name="demo cooling"
         type="cooling"
         total-time="60"
-        total-elapsed=${this.timeDemo}
+        total-elapsed=${this._timeDemo}
         @change-status="${ (e) => this._changeStatus(e) }"
         @click-status="${ (e) => this._clickStatus(e)}"
       ></button-play-stop>
 
       <!-- <redcockroach-toast-event .events=${this._events}></redcockroach-toast-event> -->
-
     </div>`;
   }
 
@@ -122,7 +120,6 @@ export class DemoButtonPlayStop extends LitElement {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
       detail: e.detail
-
     })
   }
 
@@ -135,7 +132,6 @@ export class DemoButtonPlayStop extends LitElement {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
       detail: e.detail
-
     })
   }
 }
