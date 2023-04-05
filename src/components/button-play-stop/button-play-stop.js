@@ -20,7 +20,6 @@ import styles from './button-play-stop-styles.js';
  * @property { String } heightButton - heightButton of buttons @default 100px
  * @property { String } progressBarBackgroundColor - background progress bar @default #7F7E7E
  * @property { String } progressBarColor - color progress bar @default #4EFF00
- * @property { Boolean } _demo - active demo @default false
  * 
  * @fire button-play-stop#change-status - launch event with new status
  * 
@@ -103,17 +102,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
       progressBarColor: {
         type: String,
         attribute: 'progress-bar-color',
-      },
-      /**
-       * Buttons demos active
-       * @default false
-       */
-      _demo: {
-        type: Boolean,
-        reflect: true,
-        attribute: 'demo'
-      },
-      _demoEvent: {}
+      }
     }
   };
 
@@ -137,27 +126,15 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
 
     this.circleBar = null;
     this.circleProgress = '0';
-
-    this._demo = false;
-    this._demoEvent = {};
   }
 
   connectedCallback() {
     super.connectedCallback();
-
     this.progressBarColor = this._colorIcon[this.type];
-
-    // launch demo interval
-    this._demoEvent = this._demo ? setInterval(() => {
-      this.totalElapsed++
-    }, 1000) : {};
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-
-    // remove demo interval
-    this._demo ? clearInterval(this._demoEvent) : null;
   }
 
   firstUpdated() {
@@ -179,7 +156,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   updated(changedProperties) {
     super.updated(changedProperties)
     if (changedProperties && changedProperties.get('totalTime')) {
-      console.info('progress change atribute totalTime ', {
+      console.warn('progress change atribute totalTime ', {
         totalTime: this.totalTime,
         totalTimeElapsed: this.totalElapsed
       })
@@ -187,7 +164,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
       this.requestUpdate();
     }
     if (changedProperties && changedProperties.get('totalElapsed')) {
-      console.info('progress change atribute totalElapsed ', {
+      console.warn('progress change atribute totalElapsed ', {
         totalTime: this.totalTime,
         totalTimeElapsed: this.totalElapsed
       })
