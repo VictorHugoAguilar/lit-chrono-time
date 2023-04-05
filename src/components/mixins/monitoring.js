@@ -42,16 +42,17 @@ export const MonitoringMixin = Base =>
       if (!this.monitor) {
         return false;
       }
+
       if (type === 'warn') {
         console.warn(name, detail);
         return true;
       }
       if (type === 'error') {
-        console.warn(name, detail);
+        console.error(name, detail);
         return true;
       }
       if (type === 'info') {
-        console.warn(name, detail);
+        console.info(name, detail);
         return true;
       }
       if (type === 'table') {
@@ -59,7 +60,19 @@ export const MonitoringMixin = Base =>
         console.table(detail);
         return true;
       }
-      console.log(name, detail)
+      console.log(getFormat(name), detail)
       return true;
     }
   }
+
+/**
+ * Get format:  Wed Apr 05 2023 17:55:10 :: name ::
+ * @param {*} name 
+ * @returns {String} name formatting with date
+ */
+function getFormat(name) {
+  const date = new Date().toString();
+  const splitAt = date.indexOf('GMT');
+  const dateSplit = date.substring(0, splitAt);
+  return `${dateSplit}:: ${name}::`
+}

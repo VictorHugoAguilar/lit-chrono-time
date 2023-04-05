@@ -1,8 +1,8 @@
 import { LitElement, html, svg } from "lit";
 
-import { FireEventMixin } from '../mixins/fire-events.js';
+import { MonitoringMixin, FireEventMixin } from '../mixins/index.js';
 
-import '../button-play-stop/progressbar.js';
+import './progress-bar.js';
 
 import styles from './button-play-stop-styles.js';
 
