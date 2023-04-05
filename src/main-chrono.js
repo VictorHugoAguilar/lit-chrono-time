@@ -19,7 +19,7 @@ export class MainChrono extends LitElement {
       autoRunning: {
         type: Boolean,
         attribute: 'auto-running',
-        reflex: true
+        reflect: true
       },
       listenerEventStart: {},
       listenerEventLaunch: {},

@@ -14,7 +14,7 @@ export class HeaderComponent extends LitElement {
       hiddenConfig: {
         type: Boolean,
         attribute: 'hidden-config',
-        reflex: true
+        reflect: true
       },
       timeExercice: {
         type: Number,
@@ -27,7 +27,7 @@ export class HeaderComponent extends LitElement {
       autoRunning: {
         type: Boolean,
         attribute: 'auto-running',
-        reflex: true
+        reflect: true
       },
     }
   }

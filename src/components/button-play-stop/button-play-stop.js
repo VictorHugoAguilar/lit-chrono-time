@@ -25,7 +25,7 @@ import styles from './button-play-stop-styles.js';
  * 
  * @author Victor Hugo Aguilar Aguilar
  */
-export class ButtonPlayStop extends FireEventMixin(LitElement) {
+export class ButtonPlayStop extends MonitoringMixin(FireEventMixin(LitElement)) {
   static get is() {
     return 'button-play-stop';
   }
@@ -126,6 +126,7 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
 
     this.circleBar = null;
     this.circleProgress = '0';
+
   }
 
   connectedCallback() {
@@ -156,18 +157,18 @@ export class ButtonPlayStop extends FireEventMixin(LitElement) {
   updated(changedProperties) {
     super.updated(changedProperties)
     if (changedProperties && changedProperties.get('totalTime')) {
-      console.warn('progress change atribute totalTime ', {
+      this.monitoring('progress change atribute totalTime ', 'default', {
         totalTime: this.totalTime,
         totalTimeElapsed: this.totalElapsed
-      })
+      });
       this._calculteProgress();
       this.requestUpdate();
     }
     if (changedProperties && changedProperties.get('totalElapsed')) {
-      console.warn('progress change atribute totalElapsed ', {
+      this.monitoring('progress change atribute totalElapsed ', 'default', {
         totalTime: this.totalTime,
         totalTimeElapsed: this.totalElapsed
-      })
+      });
       this._calculteProgress();
       this.requestUpdate();
     }
