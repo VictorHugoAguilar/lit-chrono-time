@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
+    "start": "wds --watch",
     "dev": "wds --node-resolve --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
