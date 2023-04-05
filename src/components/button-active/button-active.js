@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit";
 
-import { FireEventMixin } from '../mixins/fire-events.js';
+import { FireEventMixin, MonitoringMixin } from '../mixins/index.js';
 
 import styles from './button-active-styles.js';
 
@@ -19,7 +19,7 @@ import styles from './button-active-styles.js';
  * 
  * @author Victor Hugo Aguilar Aguilar
  */
-export class ButtonActive extends FireEventMixin(LitElement) {
+export class ButtonActive extends MonitoringMixin(FireEventMixin(LitElement)) {
   static get is() {
     return 'button-active';
   }
@@ -93,7 +93,7 @@ export class ButtonActive extends FireEventMixin(LitElement) {
   }
 
   firstUpdated() {
-    console.warn('type of buttons ', this.type)
+    this.monitor('type of buttons ', this.type);
   }
 
   updated(changedProperties) {
