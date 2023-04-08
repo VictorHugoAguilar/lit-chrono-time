@@ -12,17 +12,14 @@ import {
 import styles from './round-cicle-style.js';
 
 /**
- * Buttons actived
- * @description Buttons for actived or disable
- * @customElement button-play-stop
+ * RoundCicles
+ * @description RoundCicles for show fase
+ * @customElement round-cicles
  * 
- * @property { String } name - name of buttons
- * @property { String } type - name of buttons posibility default| training | resting | preparing | cooling @default default 
- * @property { String } status - status of buttons @default disable
- * @property { Boolean } activate - activated or not button @default false
- * @property { String } size - sizr of buttons @default small
- * 
- * @fire change-status-button-active#click - launch event with new status
+ * @property { String } name - name of component
+ * @property { String } fase - fase default| training | resting | preparing | cooling @default default 
+ * @property { String } title - title of fase
+ * @property { Number } roundCicle - number of circle or round
  * 
  * @author Victor Hugo Aguilar Aguilar
  */
@@ -41,19 +38,23 @@ export class RoundCicles extends MonitoringMixin(FireEventMixin(LitElement)) {
         attribute: 'name',
       },
       /**
-       * Type buttons type: default | training | resting | preparing | cooling
-       * @description property name the button to show
-       * @enum default | training | resting | preparing | cooling
+       * fase of round or cicle default | training | resting | preparing | cooling
        * @default default
        */
-      type: {
+      fase: {
         type: String,
         attribute: 'type'
       },
+      /**
+       * Title of fase
+       */
       title: {
         type: String,
         attribute: 'title'
       },
+      /**
+       * Round or cicle of fase
+       */
       roundCicle: {
         type: Number,
         attribute: 'round-cicle',
@@ -68,7 +69,7 @@ export class RoundCicles extends MonitoringMixin(FireEventMixin(LitElement)) {
   constructor() {
     super();
     this.name = '';
-    this.type = 'default';
+    this.fase = 'default';
     this.title = '';
     this.number = 0
 
@@ -84,12 +85,12 @@ export class RoundCicles extends MonitoringMixin(FireEventMixin(LitElement)) {
   }
 
   firstUpdated() {
-    this.monitoring('type of components round-cicle ', 'default', this.type);
+    this.monitoring('type of components round-cicle ', 'default', this.fase);
   }
 
   updated(changedProperties) {
     super.updated(changedProperties)
-    if (changedProperties && changedProperties.get('number')) {
+    if (changedProperties && changedProperties.get('roundCicle')) {
       this.requestUpdate();
     }
   }
@@ -113,9 +114,8 @@ export class RoundCicles extends MonitoringMixin(FireEventMixin(LitElement)) {
   }
 
   get _addStyle() {
-    return css `color: ${this._colorNumber[this.type]}`;
+    return css `color: ${this._colorNumber[this.fase]}`;
   }
-
 
   get _colorNumber() {
     return {
@@ -126,9 +126,6 @@ export class RoundCicles extends MonitoringMixin(FireEventMixin(LitElement)) {
       cooling: css `#08E5FF`,
     }
   }
-
-
-
 }
 
 customElements.define(RoundCicles.is, RoundCicles);
