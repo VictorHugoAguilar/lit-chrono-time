@@ -1,8 +1,4 @@
-import {
-  LitElement,
-  html,
-  css
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, css } from "lit";
 
 import "./index.js";
 
@@ -23,7 +19,7 @@ export class MainChrono extends LitElement {
       autoRunning: {
         type: Boolean,
         attribute: 'auto-running',
-        reflex: true
+        reflect: true
       },
       listenerEventStart: {},
       listenerEventLaunch: {},

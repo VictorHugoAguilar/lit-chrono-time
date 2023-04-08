@@ -1,8 +1,4 @@
-import {
-  LitElement,
-  html,
-  css
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, css } from "lit";
 
 import {
   config, replay
@@ -20,7 +16,7 @@ export class HeaderComponent extends LitElement {
       hiddenConfig: {
         type: Boolean,
         attribute: 'hidden-config',
-        reflex: true
+        reflect: true
       },
       timeExercice: {
         type: Number,
@@ -33,7 +29,7 @@ export class HeaderComponent extends LitElement {
       autoRunning: {
         type: Boolean,
         attribute: 'auto-running',
-        reflex: true
+        reflect: true
       },
     }
   }

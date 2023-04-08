@@ -1,12 +1,10 @@
-import {
-  html
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { html } from "lit";
 
 export const replay = html `<svg
   xmlns="http://www.w3.org/2000/svg"
   enable-background="new 0 0 24 24"
-  height="36px"
-  width="36px"
+  height="48px"
+  width="48px"
   viewBox="0 0 24 24"
   fill="currentColor"
 >
@@ -25,9 +23,9 @@ export const replay = html `<svg
 </svg>`;
 export const pause = html `<svg
   xmlns="http://www.w3.org/2000/svg"
-  height="36px"
-  width="36px"
+  height="48px"
   viewBox="0 0 24 24"
+  width="48px"
   fill="currentColor"
 >
   <title>Pause</title>
@@ -36,9 +34,9 @@ export const pause = html `<svg
 </svg>`;
 export const play = html `<svg
   xmlns="http://www.w3.org/2000/svg"
-  height="36px"
-  width="36px"
+  height="48px"
   viewBox="0 0 24 24"
+  width="48px"
   fill="currentColor"
 >
   <title>Play</title>
