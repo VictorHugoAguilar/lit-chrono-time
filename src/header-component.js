@@ -1,7 +1,12 @@
-import { LitElement, html, css } from "lit";
+import {
+  LitElement,
+  html,
+  css
+} from "lit";
 
 import {
-  config, replay
+  config,
+  replay
 } from "./icons.js";
 
 import './index.js'
@@ -54,7 +59,7 @@ export class HeaderComponent extends LitElement {
       display: flex;
       flex-direction: row;
       align-items: center;
-      // border: thin solid red;
+      /* border: thin solid red; */
     }
     
     .title {
@@ -62,14 +67,11 @@ export class HeaderComponent extends LitElement {
       text-align: center;
       font-size: 2.5em;
       color: white;
-      // border: thin solid red;
+      /* border: thin solid red; */
     }
     .icon{
       width: 10%;
-      // border: thin solid red;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      /* border: thin solid red; */
     }
     
     .icon-config{
@@ -77,7 +79,7 @@ export class HeaderComponent extends LitElement {
       height: 40px;
       color: greenyellow;
       border: 2px solid greenyellow;
-      border-radius: 100%; 
+      border-radius: 50%; 
       display: flex;
       justify-content: center;
       align-items: center;
@@ -141,11 +143,10 @@ export class HeaderComponent extends LitElement {
           <round-component></round-component>
         </div>
         <div class="icon">
-        <span class="icon-config" @click="${ () => this._hiddenConfig() }">
-        ${replay}
-        </span>
-      </div>
-
+          <span class="icon-config" @click="${ () => this._hiddenConfig() }">
+          ${replay}
+          </span>
+        </div>
       </div>
       <div class="config" ?hidden=${!this.hiddenConfig}>
         <div class="main-config" >
