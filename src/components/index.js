@@ -4,6 +4,8 @@ import './button-active/button-active.js';
 import './round-cicles/round-cicle.js';
 import './chrono-view/chrono-view.js';
 import './start-component/start-component.js';
+import './config-component/config-component.js';
+import './config-option/config-option.js';
 
 // demos
 import './button-play-stop/demo/button-play-stop-demo.js';

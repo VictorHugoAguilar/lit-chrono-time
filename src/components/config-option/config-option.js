@@ -52,13 +52,22 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
       value: {
         type: Number,
         attribute: 'value'
-      }
+      },
+      /**
+       * show input for update values
+       * @default false
+       */
+      visibleInput: {
+        type: Boolean,
+        attribute: 'visible-input'
+      },
     }
   }
 
   static get styles() {
     return [styles]
   }
+
 
   constructor() {
     super();
@@ -67,6 +76,7 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
     this.title = 'Prepárate';
     this.description = 'Cuenta atrás antes de empezar';
     this.value = 0;
+    this.visibleInput = false;
   }
 
   connectedCallback() {
@@ -75,8 +85,8 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
 
   render() {
     return html `
-    <div class="container-config-option">
-      <div class="main-config-option" >
+    <div class="container-config-option" >
+      <div class="main-config-option" style="${ !this.visibleInput ? 'display:flex' : 'display:none' }" >
         <div class="option-label">
           <div class="option">
             <div class="option-title-color" style=${this.addStyleBackground}></div>
@@ -84,26 +94,48 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
           </div>
           <div class="option-title-description">${this.description}</div>
         </div>
-        <div class="option-input">
+        <div class="option-input" >
+          <div class="input-time" @click=${() => this.visibleInput = !this.visibleInput}> 
+            ${this.formattedTime} 
+          </div>
+        </div>
+      </div>
+      <div class="main-config-option-values" style="${ this.visibleInput ? 'display:flex' : 'display:none' }"  >
+        <div class="main-config-option-values-input">
           <input name="option-value-${this.name}" 
-            class="input-time" 
-            type="number" 
-            value="${this.value}" 
-            @keyup="${this._changeValue}"
-            style=${this.addStyleBackground}
-            >
+                class="input-time-value"
+                id="input-value" 
+                type="number" 
+                value="${this.value}" 
+                style=${this.addStyleBackground}
+                >
+          <button class="option-time-save" @click=${ (e) => this._changeValue(e) }>GUARDAR</button>
         </div>
       </div>
     </div>
   `;
   }
 
+  get formattedTime() {
+    const remaining = this.value * 1000;
+    const min = Math.floor(remaining / 60000);
+    const sec = pad(min, Math.floor((remaining / 1000) % 60));
+    const hun = pad(true, Math.floor((remaining % 1000) / 10));
+
+    const time = min ? min + ':' + sec : ':' + sec;
+    return time;
+
+  }
+
   _changeValue(e) {
     e.preventDefault();
+    const newValue = this.renderRoot.querySelector('#input-value').value;
+    this.value = Math.abs(newValue)
     this.fireEvent('change-value-option', {
       name: this.name,
-      value: Math.abs(e.target.value)
+      value: newValue
     });
+    this.visibleInput = !this.visibleInput;
   }
 
   get addStyleBackground() {
@@ -122,3 +154,7 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
 }
 
 customElements.define(ConfigOption.is, ConfigOption);
+
+function pad(pad, val) {
+  return pad ? String(val).padStart(2, "0") : val;
+}
