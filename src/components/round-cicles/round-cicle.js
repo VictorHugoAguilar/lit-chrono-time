@@ -43,7 +43,7 @@ export class RoundCicles extends MonitoringMixin(FireEventMixin(LitElement)) {
        */
       fase: {
         type: String,
-        attribute: 'type'
+        attribute: 'fase'
       },
       /**
        * Title of fase

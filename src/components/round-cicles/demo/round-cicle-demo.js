@@ -62,28 +62,28 @@ export class DemoRoundCicles extends LitElement {
 
           <round-cicles
             name="preparing"
-            type="preparing"
+            fase="preparing"
             round-cicle="1"
             title="rondas restantes"
           ></round-cicles>
 
           <round-cicles
             name="exercice"
-            type="training"
+            fase="training"
             round-cicle="4"
             title="ciclos restantes"
           ></round-cicles>
 
           <round-cicles
             name="resting"
-            type="resting"
+            fase="resting"
             round-cicle="2"
             title="ciclos restantes"
           ></round-cicles>
 
           <round-cicles
             name="cooling"
-            type="cooling"
+            fase="cooling"
             round-cicle="5"
             title="rondas restantes"
           ></round-cicles>

@@ -10,7 +10,7 @@ export default css `
 
   .container{
     width: 120px;
-    height: 130px;
+    height: 150px;
     background-color: #474747;
     display: flex;
     flex-direction: column;
