@@ -10,7 +10,6 @@ export default css `
   .container-config {
     width: 100%;
     height: 776px;
-    border: thin solid red;
     background-color: #474747;
   }
 

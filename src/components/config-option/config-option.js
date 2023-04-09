@@ -61,6 +61,24 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
         type: Boolean,
         attribute: 'visible-input'
       },
+      /**
+       * title button saved
+       * @default 'GUARDAR'
+       */
+      titleButtonSaved: {
+        type: String,
+        attribute: 'title-button-saved'
+      },
+      /**
+       * natural define if number or time 
+       * value to represent this component
+       * @default false
+       */
+      natural: {
+        type: Boolean,
+        attribute: 'natural'
+      }
+
     }
   }
 
@@ -75,8 +93,10 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
     this.fase = 'default';
     this.title = 'Prepárate';
     this.description = 'Cuenta atrás antes de empezar';
+    this.titleButtonSaved = 'guardar'
     this.value = 0;
     this.visibleInput = false;
+    this.natural = false;
   }
 
   connectedCallback() {
@@ -85,38 +105,42 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
 
   render() {
     return html `
-    <div class="container-config-option" >
-      <div class="main-config-option" style="${ !this.visibleInput ? 'display:flex' : 'display:none' }" >
-        <div class="option-label">
-          <div class="option">
-            <div class="option-title-color" style=${this.addStyleBackground}></div>
-            <div class="option-title">${this.title}</div>
+      <div class="container-config-option" >
+        <div class="main-config-option" style="${ !this.visibleInput ? 'display:flex' : 'display:none' }" >
+          <div class="option-label">
+            <div class="option">
+              <div class="option-title-color" style=${this.addStyleBackground}></div>
+              <div class="option-title">${this.title}</div>
+            </div>
+            <div class="option-title-description">${this.description}</div>
           </div>
-          <div class="option-title-description">${this.description}</div>
+          <div class="option-input" >
+            <div class="input-time" @click=${() => this.visibleInput = !this.visibleInput}> 
+              ${this.formattedTime} 
+            </div>
+          </div>
         </div>
-        <div class="option-input" >
-          <div class="input-time" @click=${() => this.visibleInput = !this.visibleInput}> 
-            ${this.formattedTime} 
+        <div class="main-config-option-values" style="${ this.visibleInput ? 'display:flex' : 'display:none' }"  >
+          <div class="main-config-option-values-input">
+            <input name="option-value-${this.name}" 
+                  class="input-time-value"
+                  id="input-value" 
+                  type="number" 
+                  value="${this.value}" 
+                  style=${this.addStyleInput}
+                  >
+            <button class="option-time-save" @click=${ (e) => this._changeValue(e) }>${this.titleButtonSaved}</button>
           </div>
         </div>
       </div>
-      <div class="main-config-option-values" style="${ this.visibleInput ? 'display:flex' : 'display:none' }"  >
-        <div class="main-config-option-values-input">
-          <input name="option-value-${this.name}" 
-                class="input-time-value"
-                id="input-value" 
-                type="number" 
-                value="${this.value}" 
-                style=${this.addStyleBackground}
-                >
-          <button class="option-time-save" @click=${ (e) => this._changeValue(e) }>GUARDAR</button>
-        </div>
-      </div>
-    </div>
   `;
   }
 
   get formattedTime() {
+    if (this.natural) {
+      return this.value;
+    }
+
     const remaining = this.value * 1000;
     const min = Math.floor(remaining / 60000);
     const sec = pad(min, Math.floor((remaining / 1000) % 60));
@@ -124,7 +148,6 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
 
     const time = min ? min + ':' + sec : ':' + sec;
     return time;
-
   }
 
   _changeValue(e) {
@@ -136,6 +159,13 @@ export class ConfigOption extends MonitoringMixin(FireEventMixin(LitElement)) {
       value: newValue
     });
     this.visibleInput = !this.visibleInput;
+  }
+
+  get addStyleInput() {
+    const color = this._colorNumber[this.fase];
+    return css `border: 1px solid ${color};
+                color: ${color};
+                `
   }
 
   get addStyleBackground() {

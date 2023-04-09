@@ -36,8 +36,48 @@ export class ConfigComponent extends MonitoringMixin(FireEventMixin(LitElement))
     return html `
     <div class="container-config">
 
-    <config-option></config-option>
-    <config-option></config-option>
+    <config-option
+      name="option-preparing"
+      fase="preparing"
+      title="prepárate"
+      description="Cuenta atrás antes de empezar"
+      title-button-saved="guardar"
+    ></config-option>
+
+    <config-option
+      name="option-training"
+      fase="training"
+      title="entrenar"
+      description="hacer ejercicios durante este tiempo"
+      title-button-saved="guardar"
+    ></config-option>
+
+    <config-option
+      name="option-resting"
+      fase="resting"
+      title="descanzar"
+      description="descanzar durante este tiempo"
+      title-button-saved="guardar"
+    ></config-option>
+
+    <config-option
+      name="option-cooling"
+      fase="cooling"
+      title="enfriamiento"
+      description="enfriamiento despues del entrenamiento"
+      title-button-saved="guardar"
+    ></config-option>
+
+    <config-option
+      name="option-cooling"
+      fase="cooling"
+      title="rondas"
+      description="una ronda ronda ejercicio + descanso"
+      title-button-saved="guardar"
+      natural
+    ></config-option>
+    
+
 
       <!-- <div class="container-config-title">
         <p class="title">Configuraciones</p>
