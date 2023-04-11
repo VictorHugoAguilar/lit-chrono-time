@@ -22,4 +22,18 @@ export const UtilMixin = Base =>
     }
 
 
+    get _colorForPhase() {
+      return {
+        default: css `#4EFF00`,
+        training: css `#4EFF00`,
+        resting: css `#EB0303`,
+        preparing: css `#ECF80A`,
+        cooling: css `#08E5FF`,
+      }
+    }
+
+    pad(pad, val) {
+      return pad ? String(val).padStart(2, "0") : val;
+    }
+
   }
