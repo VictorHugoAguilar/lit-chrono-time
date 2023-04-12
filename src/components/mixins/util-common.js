@@ -24,11 +24,11 @@ export const UtilMixin = Base =>
 
     get _colorForPhase() {
       return {
-        default: css `#4EFF00`,
-        training: css `#4EFF00`,
-        resting: css `#EB0303`,
-        preparing: css `#ECF80A`,
-        cooling: css `#08E5FF`,
+        default: css `${DEFAULT}`,
+        training: css `${TRAINING}`,
+        resting: css `${RESTING}`,
+        preparing: css `${PREPARING}`,
+        cooling: css `${COOLING}`,
       }
     }
 
@@ -37,3 +37,9 @@ export const UtilMixin = Base =>
     }
 
   }
+
+const DEFAULT = '#4EFF00';
+const TRAINING = '#4EFF00';
+const RESTING = '#EB0303';
+const PREPARING = '#ECF80A';
+const COOLING = '#08E5FF';
