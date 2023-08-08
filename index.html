@@ -47,10 +47,13 @@
         width: 100%;
         max-width: 1000px;
         height: 100%;
+        display: flex;
+        flex-direction: column;
       }
       .pcontainer {
+        padding: 10px;
         width: 300px; /* Ajusta el ancho del contenedor según tus necesidades */
-        height: 200px; /* Ajusta la altura del contenedor según tus necesidades */
+        height: auto; /* Ajusta la altura del contenedor según tus necesidades */
         border: 1px solid #ccc;
         overflow: hidden; /* Oculta cualquier contenido que exceda el contenedor */
       }     
@@ -62,10 +65,7 @@
 
   <body>
     <div class="container">
-      <div>
-        <h2>Esto es una prueba</h2>
-      </div>
-      <div>
+      <div class="info">
         <div class="pcontainer">
           <p id="user"></p>
         </div>
@@ -75,6 +75,8 @@
         <div class="pcontainer">
           <p id="tsec"></p>
         </div>
+      </div>
+      <div class="images">
         <img id="image"/>
       </div>
       <!-- <main-app></main-app> -->
