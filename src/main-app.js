@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css } from "lit-element";
 
 import './index.js';
 
@@ -48,16 +48,17 @@ export class MainApp extends LitElement {
   render() {
     return html `
       <div>
-        <header-component 
+        <h2> Esto es una prueba</h2>
+        <!-- <header-component 
           main-title=${this.titleHead}
           @change-properties=${(e) => this._changesProperties(e)}
           time-exercice=${this.timeExercice}
           time-rest=${this.timeRest}
           ?auto-running=${ this.autoRunning}
-        ></header-component>
-        <div class="main">
+        ></header-component> -->
+        <!-- <div class="main">
           ${this._tlpChrono}
-        </div>
+        </div> -->
       </div>
     `;
   }
