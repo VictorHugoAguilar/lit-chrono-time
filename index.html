@@ -48,9 +48,14 @@
         max-width: 1000px;
         height: 100%;
       }
-      p {
-        width: 80%;
-        height: auto;
+      .pcontainer {
+        width: 300px; /* Ajusta el ancho del contenedor según tus necesidades */
+        height: 200px; /* Ajusta la altura del contenedor según tus necesidades */
+        border: 1px solid #ccc;
+        overflow: hidden; /* Oculta cualquier contenido que exceda el contenedor */
+      }     
+      .pcontainer p {
+        word-wrap: break-word; /* Permite que las palabras largas se rompan y ajusten dentro del contenedor */
       }
     </style>
   </head>
@@ -61,9 +66,15 @@
         <h2>Esto es una prueba</h2>
       </div>
       <div>
-        <p id="user"></p>
-        <p id="consumer"></p>
-        <p id="tsec"></p>
+        <div class="pcontainer">
+          <p id="user"></p>
+        </div>
+        <div class="pcontainer">
+          <p id="consumer"></p>
+        </div>
+        <div class="pcontainer">
+          <p id="tsec"></p>
+        </div>
         <img id="image"/>
       </div>
       <!-- <main-app></main-app> -->
