@@ -16,9 +16,9 @@ window.addEventListener('load', () => {
 
     if(user){
       containerImage.src = "https://master--steady-quokka-ad4380.netlify.app/assets/me-explota-la-cabeza.gif";
+    }else{
+      containerImage.src = "https://master--steady-quokka-ad4380.netlify.app/assets/no-noo.gif";
     }
-
   }, 500)
 
 });
-
