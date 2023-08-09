@@ -147,23 +147,23 @@ const onLoad = function onLoad() {
     // localStorage.removeItem('getSessionStorage', 'foobar');
     // }
 
-    const dbName = 'MiBaseDeDatos';
-    const dbVersion = 1;
-    const request = indexedDB.open(dbName, dbVersion);
+    // const dbName = 'MiBaseDeDatos';
+    // const dbVersion = 1;
+    // const request = indexedDB.open(dbName, dbVersion);
 
-    // Manejar la creación o actualización de la base de datos
-    request.onupgradeneeded = event => {
-      const db = event.target.result;
+    // // Manejar la creación o actualización de la base de datos
+    // request.onupgradeneeded = event => {
+    //   const db = event.target.result;
 
-      // Crea un almacén de objetos llamado "contactos"
-      const objectStore = db.createObjectStore('contactos', {
-        keyPath: 'id',
-        autoIncrement: true,
-      });
+    //   // Crea un almacén de objetos llamado "contactos"
+    //   const objectStore = db.createObjectStore('contactos', {
+    //     keyPath: 'id',
+    //     autoIncrement: true,
+    //   });
 
-      // Crea un índice para buscar por correo electrónico
-      objectStore.createIndex('email', 'email', { unique: true });
-    };
+    //   // Crea un índice para buscar por correo electrónico
+    //   objectStore.createIndex('email', 'email', { unique: true });
+    // };
 
     setCookie('username', 'john', 7);
   }
