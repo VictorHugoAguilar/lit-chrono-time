@@ -270,9 +270,6 @@ const onLoad = function onLoad() {
   });
 };
 
-// print data when an event is received
-window.addEventListener('load', onLoad);
-
 // transfers sessionStorage from one tab to another
 const sessionStorageTransfer = function transefer(e) {
   let evnt = e;
@@ -293,5 +290,7 @@ const sessionStorageTransfer = function transefer(e) {
     });
   }
 };
-
 window.addEventListener('storage', sessionStorageTransfer, false);
+
+// print data when an event is received
+window.addEventListener('load', onLoad);
