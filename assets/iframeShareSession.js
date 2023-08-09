@@ -116,6 +116,13 @@ const onLoad = function onLoad() {
     );
   }
 
+  function setCookie(name, value, daysToExpire) {
+    const date = new Date();
+    date.setTime(date.getTime() + daysToExpire * 24 * 60 * 60 * 1000);
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=${value};${expires};path=/`;
+  }
+
   function saveDataInSessionStorage(tsec, consumerId, loginUserInfo) {
     // store the tsec
     sessionStorage.setItem('tsec', tsec);
@@ -157,6 +164,8 @@ const onLoad = function onLoad() {
       // Crea un índice para buscar por correo electrónico
       objectStore.createIndex('email', 'email', { unique: true });
     };
+
+    setCookie('username', 'john', 7);
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
