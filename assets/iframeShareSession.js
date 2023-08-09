@@ -111,6 +111,12 @@ const onLoad = function onLoad() {
       'bbvaBtgeLoginUserInfo',
       JSON.stringify(loginUserInfo)
     );
+
+    // Ask other tabs for session storage (this is ONLY to trigger event)
+    if (!sessionStorage.length) {
+      localStorage.setItem('getSessionStorage', 'foobar');
+      localStorage.removeItem('getSessionStorage', 'foobar');
+    }
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
