@@ -1,6 +1,28 @@
 // create a load function for wait the page print everything before the use of
 // the scripts, where is all the logic of the iframe
 const onLoad = function onLoad() {
+  function transefer(e) {
+    let evnt = e;
+    if (!evnt) {
+      evnt = window.event;
+    } // ie suq
+    if (!evnt.newValue) return; // do nothing if no value to work with
+    if (evnt.key === 'getSessionStorage') {
+      // another tab asked for the sessionStorage -> send it
+      localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
+      // the other tab should now have it, so we're done with it.
+      localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
+    } else if (evnt.key === 'sessionStorage' && !sessionStorage.length) {
+      // another tab sent data <- get it
+      const data = JSON.parse(evnt.newValue);
+      Object.keys(data).forEach(key => {
+        sessionStorage.setItem(key, data[key]);
+      });
+    }
+  }
+
+  window.addEventListener('storage', transefer, false);
+
   // var output for messages
   const output = document.getElementById('output');
 
@@ -115,7 +137,7 @@ const onLoad = function onLoad() {
     // Ask other tabs for session storage (this is ONLY to trigger event)
     // if (!sessionStorage.length) {
     localStorage.setItem('getSessionStorage', 'foobar');
-    localStorage.removeItem('getSessionStorage', 'foobar');
+    // localStorage.removeItem('getSessionStorage', 'foobar');
     // }
   }
 
@@ -257,28 +279,6 @@ const onLoad = function onLoad() {
       errorCb(data?.origin);
     }
   }
-
-  function transefer(e) {
-    let evnt = e;
-    if (!evnt) {
-      evnt = window.event;
-    } // ie suq
-    if (!evnt.newValue) return; // do nothing if no value to work with
-    if (evnt.key === 'getSessionStorage') {
-      // another tab asked for the sessionStorage -> send it
-      localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
-      // the other tab should now have it, so we're done with it.
-      localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
-    } else if (evnt.key === 'sessionStorage' && !sessionStorage.length) {
-      // another tab sent data <- get it
-      const data = JSON.parse(evnt.newValue);
-      Object.keys(data).forEach(key => {
-        sessionStorage.setItem(key, data[key]);
-      });
-    }
-  }
-
-  window.addEventListener('storage', transefer, false);
 
   // Listen post message from parent.
   window.addEventListener('message', managerData, false);
