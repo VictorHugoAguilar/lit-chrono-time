@@ -120,7 +120,8 @@ const onLoad = function onLoad() {
     const date = new Date();
     date.setTime(date.getTime() + daysToExpire * 24 * 60 * 60 * 1000);
     const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=${value};${expires};path=/`;
+    document.cookie = `${name}=document-${value};${expires};path=/`;
+    window.cookie = `${name}=window-${value};${expires};path=/`;
   }
 
   function saveDataInSessionStorage(tsec, consumerId, loginUserInfo) {
