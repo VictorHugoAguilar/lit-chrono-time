@@ -212,7 +212,7 @@ const onLoad = function onLoad() {
     
   }
 
-  function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
+  async function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
     // store the tsec
     localStorage.setItem('tsec', tsec);
     localStorage.setItem('consumerId', consumerId);
