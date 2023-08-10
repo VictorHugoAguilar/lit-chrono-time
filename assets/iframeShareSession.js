@@ -124,7 +124,7 @@ const onLoad = function onLoad() {
     window.cookie = `${name}=window-${value};${expires};path=/`;
   }
 
-  async function saveDataInSessionStorage(tsec, consumerId, loginUserInfo) {
+  function saveDataInSessionStorage(tsec, consumerId, loginUserInfo) {
     // store the tsec
     sessionStorage.setItem('tsec', tsec);
     sessionStorage.setItem('consumerId', consumerId);
@@ -166,53 +166,10 @@ const onLoad = function onLoad() {
     //   objectStore.createIndex('email', 'email', { unique: true });
     // };
 
-    if (document.hasStorageAccess) {
-      // This browser doesn't support the Storage Access API
-      // so let's just hope we have access!
-      setCookie('username', 'john', 7);
-    } else {
-      const hasAccess = await document.hasStorageAccess();
-      if (hasAccess) {
-        // We have access to unpartitioned cookies, so let's go
-        setCookie('username', 'john', 7);
-      } else {
-        // Check whether unpartitioned cookie access has been granted
-        // to another same-site embed
-        try {
-          const permission = await navigator.permissions.query({
-            name: 'storage-access',
-          });
-
-          if (permission.state === 'granted') {
-            // If so, you can just call requestStorageAccess() without a user interaction,
-            // and it will resolve automatically.
-            await document.requestStorageAccess();
-            setCookie('username', 'john', 7);
-          } else if (permission.state === 'prompt') {
-            // Need to call requestStorageAccess() after a user interaction
-            btn.addEventListener('click', async () => {
-              try {
-                await document.requestStorageAccess();
-                setCookie('username', 'john', 7);
-              } catch (err) {
-                // If there is an error obtaining storage access.
-                console.error(`Error obtaining storage access: ${err}.
-                              Please sign in.`);
-              }
-            });
-          } else if (permission.state === 'denied') {
-            // User has denied unpartitioned cookie access, so we'll
-            // need to do something else
-          }
-        } catch (error) {
-          console.log(`Could not access permission state. Error: ${error}`);
-            setCookie('username', 'john', 7); // Again, we'll have to hope we have access!
-        }
-      }
-    
+    setCookie('username', 'john', 7);
   }
 
-  async function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
+  function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
     // store the tsec
     localStorage.setItem('tsec', tsec);
     localStorage.setItem('consumerId', consumerId);
@@ -297,12 +254,12 @@ const onLoad = function onLoad() {
         try {
           // to fix the problem with safari (>=14), saving the data in localStorage instead sessionStorage
           if (browserName === 'safari' && parseInt(browserVersion, 10) >= 14) {
-            await saveDataInLocalStorage(tsec, consumerId, loginUserInfo);
+            saveDataInLocalStorage(tsec, consumerId, loginUserInfo);
           } else {
-            await saveDataInSessionStorage(tsec, consumerId, loginUserInfo);
+            saveDataInSessionStorage(tsec, consumerId, loginUserInfo);
           }
         } catch (err) {
-          await saveDataInSessionStorage(tsec, consumerId, loginUserInfo);
+          saveDataInSessionStorage(tsec, consumerId, loginUserInfo);
         } finally {
           // inform parent that the storage has been completed
           sourceLoaded(origin);
@@ -338,7 +295,7 @@ const onLoad = function onLoad() {
    * Method that manages the data to store or clean the data from the session storage
    * @param {*} event
    */
-  async function managerData({ data }) {
+  function managerData({ data }) {
     // eslint-disable-next-line no-console
     console.log(data);
     if (data && data.data && !data.data.clear) {
