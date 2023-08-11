@@ -145,7 +145,6 @@ const onLoad = function onLoad() {
     // };
 
     setCookie('username', 'john', 7);
-    window.open('https://master--steady-quokka-ad4380.netlify.app', '_top');
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
