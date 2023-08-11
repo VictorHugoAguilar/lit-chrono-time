@@ -304,7 +304,8 @@ const onLoad = function onLoad() {
   });
 
   const navigateHandler = function () {
-    window.location.href = 'https://master--steady-quokka-ad4380.netlify.app';
+    window.top.window.location.href =
+      'https://master--steady-quokka-ad4380.netlify.app';
   };
 
   const navigateBtn = document.getElementById('navigate');
