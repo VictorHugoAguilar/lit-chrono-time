@@ -335,10 +335,9 @@ const onLoad = function onLoad() {
   };
 
   const navigateHandler = function () {
-    window.top.window.sessionStorage.setItem('sesion', 'storage');
-    window.top.window.localStorage.setItem('loca', 'calo');
-    window.top.window.location.href =
-      'https://master--steady-quokka-ad4380.netlify.app';
+    // window.top.window.location.href =
+    //   'https://master--steady-quokka-ad4380.netlify.app';
+    window.open('https://master--steady-quokka-ad4380.netlify.app', '_top');
   };
 
   const navigateBtn = document.getElementById('navigate');
