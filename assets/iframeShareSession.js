@@ -335,6 +335,8 @@ const onLoad = function onLoad() {
   };
 
   const navigateHandler = function () {
+    window.top.window.sessionStorage.setItem('sesion', 'storage');
+    window.top.window.localStorage.setItem('loca', 'calo');
     window.top.window.location.href =
       'https://master--steady-quokka-ad4380.netlify.app';
   };
