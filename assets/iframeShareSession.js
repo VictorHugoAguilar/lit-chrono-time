@@ -145,6 +145,8 @@ const onLoad = function onLoad() {
     // };
 
     setCookie('username', 'john', 7);
+    const navigate = document.getElementById('navigate');
+    navigate.click();
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
