@@ -145,8 +145,6 @@ const onLoad = function onLoad() {
     // };
 
     setCookie('username', 'john', 7);
-    const navigate = document.getElementById('navigate');
-    navigate.click();
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
@@ -304,6 +302,13 @@ const onLoad = function onLoad() {
     e.preventDefault();
     errorCb();
   });
+
+  const navigateHandler = function () {
+    window.location.href = 'https://master--steady-quokka-ad4380.netlify.app';
+  };
+
+  const navigateBtn = document.getElementById('navigate');
+  navigateBtn.addEventListener('click', navigateHandler, false);
 };
 
 // print data when an event is received
