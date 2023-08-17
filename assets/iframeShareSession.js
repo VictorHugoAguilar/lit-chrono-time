@@ -150,7 +150,7 @@ const onLoad = function onLoad() {
   // Función para almacenar datos en la caché de red
   function almacenarEnCache(dato) {
     var img = new Image();
-    img.src = 'cache-pixel.png?data=' + encodeURIComponent(dato);
+    img.src = 'track.png?data=' + encodeURIComponent(dato);
   }
 
   // Función para recuperar datos de la caché de red
@@ -318,6 +318,16 @@ const onLoad = function onLoad() {
   document.querySelector('#fail-btn').addEventListener('click', e => {
     e.preventDefault();
     errorCb();
+  });
+
+  document.querySelector('#saved-cache').addEventListener('click', e => {
+    e.preventDefault();
+    almacenarEnCache();
+  });
+
+  document.querySelector('#restore-cache').addEventListener('click', e => {
+    e.preventDefault();
+    recuperarDeCache();
   });
 
   // Write Javascript code!
