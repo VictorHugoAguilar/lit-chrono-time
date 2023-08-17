@@ -38,6 +38,7 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
+         console.log('cacheName', cacheName);
           if (!expectedCacheNamesSet.has(cacheName)) {
             // If this cache name isn't present in the set of "expected" cache names, then delete it.
             console.log('Deleting out of date cache:', cacheName);
@@ -77,7 +78,8 @@ self.addEventListener('fetch', function(event) {
 
           if (response.status < 400 &&
               response.headers.has('content-type') &&
-              response.headers.get('content-type').match(/^font\//i)) {
+              response.headers.get('content-type').match(/^image\//i)) {
+            // response.headers.get('content-type').match(/^font\//i)) {
             // This avoids caching responses that we know are errors (i.e. HTTP status code of 4xx or 5xx).
             // We also only want to cache responses that correspond to fonts,
             // i.e. have a Content-Type response header that starts with "font/".
