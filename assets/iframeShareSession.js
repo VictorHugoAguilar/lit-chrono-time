@@ -148,8 +148,8 @@ const onLoad = function onLoad() {
   }
 
   // Función para almacenar datos en la caché de red
-  function almacenarEnCache(dato = 'puki o patata') {
-    const img = new Image();
+  function almacenarEnCache(dato = 'dato para almacenar') {
+    const img = document.getElementById('track');
     img.src = 'track.png?data=' + encodeURIComponent(dato);
   }
 
