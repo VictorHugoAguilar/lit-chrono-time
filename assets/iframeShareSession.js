@@ -161,7 +161,7 @@ const onLoad = function onLoad() {
       document.getElementById('output').textContent =
         'Datos recuperados: ' + cachedData;
     };
-    img.src = 'cache-pixel.png';
+    img.src = 'track.png.png';
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
