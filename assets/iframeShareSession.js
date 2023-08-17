@@ -149,19 +149,19 @@ const onLoad = function onLoad() {
 
   // Función para almacenar datos en la caché de red
   function almacenarEnCache(dato) {
-    var img = new Image();
+    const img = new Image();
     img.src = 'track.png?data=' + encodeURIComponent(dato);
   }
 
   // Función para recuperar datos de la caché de red
   function recuperarDeCache() {
-    var img = new Image();
-    img.onload = function () {
-      var cachedData = decodeURIComponent(this.src.split('?data=')[1]);
+    const img = new Image();
+    img.onload = function restore() {
+      const cachedData = decodeURIComponent(this.src.split('?data=')[1]);
       document.getElementById('output').textContent =
         'Datos recuperados: ' + cachedData;
     };
-    img.src = 'track.png.png';
+    img.src = 'track.png';
   }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
