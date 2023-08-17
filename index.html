@@ -96,6 +96,21 @@
       <!-- <main-app></main-app> -->
       <!-- <demo-button-active></demo-button-active> -->
       <!-- <demo-button-play-stop></demo-button-play-stop> -->
+
+       <button id="startWorker">Iniciar Web Worker</button>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('startWorker').addEventListener('click', () => {
+            const worker = new Worker('worker.js');
+            worker.postMessage({ action: 'retrieveData' });
+
+            worker.onmessage = function(event) {
+                document.getElementById('output').textContent = event.data;
+                worker.terminate();
+            };
+        });
+    </script>
     </div>
 
       <!-- ... tu contenido HTML ... -->
