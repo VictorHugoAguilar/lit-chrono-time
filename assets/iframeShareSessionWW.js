@@ -164,7 +164,7 @@ const onLoad = function onLoad() {
     const worker = new Worker('service-worker.js');
     worker.postMessage({
       action: 'storeData',
-      data,
+      data: JSON.stringify(data),
     });
 
     worker.onmessage = function sent(evnt) {
