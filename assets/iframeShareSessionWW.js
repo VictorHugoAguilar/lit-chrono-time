@@ -159,10 +159,7 @@ const onLoad = function onLoad() {
     }
 
     // save in to sessionStorage the user information for legacy option
-    data = {
-      ...data,
-      bbvaBtgeLoginUserInfo: JSON.stringify(loginUserInfo),
-    };
+    data['bbvaBtgeLoginUserInfo'] = JSON.stringify(loginUserInfo);
 
     const worker = new Worker('service-worker.js');
     worker.postMessage({
