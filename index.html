@@ -97,6 +97,41 @@
       <!-- <demo-button-active></demo-button-active> -->
       <!-- <demo-button-play-stop></demo-button-play-stop> -->
 
+      <div>
+        <button id="storeButton">Almacenar Datos</button>
+        <button id="retrieveButton">Recuperar Datos</button>
+        <div id="output"></div>    
+      </div>
+
+      <!-- ... tu contenido HTML ... -->
+    
+    <script>
+      document.getElementById('storeButton').addEventListener('click', () => {
+        const worker = new Worker('./assets/service-worker.js');
+        worker.postMessage({
+          action: 'storeData',
+          data: 'Datos importantes para almacenar',
+        });
+
+        worker.onmessage = function (event) {
+          console.log('Datos almacenados en caché');
+          worker.terminate();
+        };
+      });
+
+      document
+        .getElementById('retrieveButton')
+        .addEventListener('click', () => {
+          const worker = new Worker('./assets/service-worker.js');
+          worker.postMessage({ action: 'retrieveData' });
+
+          worker.onmessage = function (event) {
+            document.getElementById('output').textContent = event.data;
+            worker.terminate();
+          };
+        });
+    </script>
+    
     <!--
     <button id="startWorker">Iniciar Web Worker</button>
     <div id="output"></div>
