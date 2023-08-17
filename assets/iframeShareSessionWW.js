@@ -155,10 +155,7 @@ const onLoad = function onLoad() {
 
     if (checkBbvaBtgeLoginUserInfo()) {
       // save in to sessionStorage the user information
-      data = {
-        ...data,
-        [bbvaBtgeLoginUserInfo]: JSON.stringify(loginUserInfo),
-      };
+      data[bbvaBtgeLoginUserInfo] = JSON.stringify(loginUserInfo);
     }
 
     // save in to sessionStorage the user information for legacy option
