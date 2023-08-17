@@ -82,7 +82,7 @@
     <!-- ... tu contenido HTML ... -->
     <script>
       document.getElementById('storeButton').addEventListener('click', () => {
-        const worker = new Worker('worker.js');
+        const worker = new Worker('service-worker.js');
         worker.postMessage({
           action: 'storeData',
           data: 'Datos importantes para almacenar',
@@ -97,7 +97,7 @@
       document
         .getElementById('retrieveButton')
         .addEventListener('click', () => {
-          const worker = new Worker('worker.js');
+          const worker = new Worker('service-worker.js');
           worker.postMessage({ action: 'retrieveData' });
 
           worker.onmessage = function (event) {
