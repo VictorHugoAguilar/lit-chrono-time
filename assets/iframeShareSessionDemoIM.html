@@ -69,8 +69,9 @@
           </button>
         </div>
         <div>
-          <!-- <img id="track" width="1" height="1" style="display: none" />
-          <button id="saved-cache">Almacenar en Cache</button>
+          <img id="track" width="1" height="1" style="display: none" />
+
+          <!-- <button id="saved-cache">Almacenar en Cache</button>
           <button id="restore-cache">Recuperar de Cache</button>
           <div id="output"></div> -->
           <button id="storeButton">Almacenar Datos</button>
@@ -101,7 +102,9 @@
           worker.postMessage({ action: 'retrieveData' });
 
           worker.onmessage = function (event) {
-            document.getElementById('output').textContent = JSON.stringify(event.data);
+            document.getElementById('output').textContent = JSON.stringify(
+              event.data
+            );
             worker.terminate();
           };
         });
