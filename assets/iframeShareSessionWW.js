@@ -320,15 +320,15 @@ const onLoad = function onLoad() {
     errorCb();
   });
 
-  document.querySelector('#saved-cache').addEventListener('click', e => {
-    e.preventDefault();
-    almacenarEnCache();
-  });
+  // document.querySelector('#saved-cache').addEventListener('click', e => {
+  //   e.preventDefault();
+  //   almacenarEnCache();
+  // });
 
-  document.querySelector('#restore-cache').addEventListener('click', e => {
-    e.preventDefault();
-    recuperarDeCache();
-  });
+  // document.querySelector('#restore-cache').addEventListener('click', e => {
+  //   e.preventDefault();
+  //   recuperarDeCache();
+  // });
 };
 
 // print data when an event is received
