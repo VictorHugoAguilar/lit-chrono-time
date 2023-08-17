@@ -151,22 +151,21 @@ const onLoad = function onLoad() {
     const data = {
       tsec,
       consumerId,
-      
-    }
+    };
 
     if (checkBbvaBtgeLoginUserInfo()) {
       // save in to sessionStorage the user information
       data = {
         ...data,
-        [bbvaBtgeLoginUserInfo]: JSON.stringify(loginUserInfo)
-      }
+        [bbvaBtgeLoginUserInfo]: JSON.stringify(loginUserInfo),
+      };
     }
 
     // save in to sessionStorage the user information for legacy option
     data = {
       ...data,
-      'bbvaBtgeLoginUserInfo' : JSON.stringify(loginUserInfo)
-    }
+      bbvaBtgeLoginUserInfo: JSON.stringify(loginUserInfo),
+    };
 
     const worker = new Worker('service-worker.js');
     worker.postMessage({
@@ -279,14 +278,14 @@ const onLoad = function onLoad() {
           referenceClientId,
         };
 
-        console.log('browserName', browserName)
-        console.log('browserVersion', browserVersion)
+        console.log('browserName', browserName);
+        console.log('browserVersion', browserVersion);
 
         try {
           // to fix the problem with safari (>=14), saving the data in localStorage instead sessionStorage
           if (browserName === 'safari' && parseInt(browserVersion, 10) >= 14) {
             saveDataInLocalStorage(tsec, consumerId, loginUserInfo);
-          if (browserName === 'firefox') {
+          } else if (browserName === 'firefox') {
             saveDataInCacheStorage(tsec, consumerId, loginUserInfo);
           } else {
             saveDataInSessionStorage(tsec, consumerId, loginUserInfo);
