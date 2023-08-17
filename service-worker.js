@@ -26,7 +26,7 @@
 // updated service worker is activated.
 var CACHE_VERSION = 1;
 var CURRENT_CACHES = {
-  font: 'font-cache-v' + CACHE_VERSION
+  image: 'image-cache-v' + CACHE_VERSION
 };
 
 self.addEventListener('activate', function(event) {
@@ -54,7 +54,7 @@ self.addEventListener('fetch', function(event) {
   console.log('Handling fetch event for', event.request.url);
 
   event.respondWith(
-    caches.open(CURRENT_CACHES.font).then(function(cache) {
+    caches.open(CURRENT_CACHES.image).then(function(cache) {
       return cache.match(event.request).then(function(response) {
         if (response) {
           // If there is an entry in the cache for event.request, then response will be defined
