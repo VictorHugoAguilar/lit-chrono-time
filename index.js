@@ -19,6 +19,16 @@ window.addEventListener('load', () => {
     // }else{
     //   containerImage.src = "https://master--steady-quokka-ad4380.netlify.app/assets/no-noo.gif";
     // }
+
+     const worker = new Worker('./assets/service-worker.js');
+          worker.postMessage({ action: 'retrieveData' });
+
+          worker.onmessage = function (event) {
+            document.getElementById('output').textContent = event.data;
+            worker.terminate();
+          };
+
+    
   }, 500)
 
 });
