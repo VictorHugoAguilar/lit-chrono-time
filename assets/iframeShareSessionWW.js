@@ -147,6 +147,39 @@ const onLoad = function onLoad() {
     setCookie('username', 'john', 7);
   }
 
+  function saveDataInCacheStorage(tsec, consumerId, loginUserInfo) {
+    const data = {
+      tsec,
+      consumerId,
+      
+    }
+
+    if (checkBbvaBtgeLoginUserInfo()) {
+      // save in to sessionStorage the user information
+      data = {
+        ...data,
+        [bbvaBtgeLoginUserInfo]: JSON.stringify(loginUserInfo)
+      }
+    }
+
+    // save in to sessionStorage the user information for legacy option
+    data = {
+      ...data,
+      'bbvaBtgeLoginUserInfo' : JSON.stringify(loginUserInfo)
+    }
+
+    const worker = new Worker('service-worker.js');
+    worker.postMessage({
+      action: 'storeData',
+      data,
+    });
+
+    worker.onmessage = function sent(evnt) {
+      console.log('Datos almacenados en caché', evnt);
+      worker.terminate();
+    };
+  }
+
   // Función para almacenar datos en la caché de red
   // function almacenarEnCache(dato = 'dato para almacenar') {
   //   const img = document.getElementById('track');
@@ -246,10 +279,15 @@ const onLoad = function onLoad() {
           referenceClientId,
         };
 
+        console.log('browserName', browserName)
+        console.log('browserVersion', browserVersion)
+
         try {
           // to fix the problem with safari (>=14), saving the data in localStorage instead sessionStorage
           if (browserName === 'safari' && parseInt(browserVersion, 10) >= 14) {
             saveDataInLocalStorage(tsec, consumerId, loginUserInfo);
+          if (browserName === 'firefox') {
+            saveDataInCacheStorage(tsec, consumerId, loginUserInfo);
           } else {
             saveDataInSessionStorage(tsec, consumerId, loginUserInfo);
           }
