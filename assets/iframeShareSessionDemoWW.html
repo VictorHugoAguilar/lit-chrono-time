@@ -101,7 +101,7 @@
           worker.postMessage({ action: 'retrieveData' });
 
           worker.onmessage = function (event) {
-            document.getElementById('output').textContent = JSON.stringify(event.data);
+            document.getElementById('output').textContent = JSON.parse(event.data);
             worker.terminate();
           };
         });
