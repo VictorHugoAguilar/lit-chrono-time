@@ -320,15 +320,15 @@ const onLoad = function onLoad() {
     errorCb();
   });
 
-  document.querySelector('#saved-cache').addEventListener('click', e => {
-    e.preventDefault();
-    almacenarEnCache();
-  });
+  // document.querySelector('#saved-cache').addEventListener('click', e => {
+  //   e.preventDefault();
+  //   almacenarEnCache();
+  // });
 
-  document.querySelector('#restore-cache').addEventListener('click', e => {
-    e.preventDefault();
-    recuperarDeCache();
-  });
+  // document.querySelector('#restore-cache').addEventListener('click', e => {
+  //   e.preventDefault();
+  //   recuperarDeCache();
+  // });
 
   // Write Javascript code!
   const appDiv = document.getElementById('app');
