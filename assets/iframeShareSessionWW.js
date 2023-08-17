@@ -148,21 +148,21 @@ const onLoad = function onLoad() {
   }
 
   // Función para almacenar datos en la caché de red
-  function almacenarEnCache(dato = 'dato para almacenar') {
-    const img = document.getElementById('track');
-    img.src = 'track.png?data=' + encodeURIComponent(dato);
-  }
+  // function almacenarEnCache(dato = 'dato para almacenar') {
+  //   const img = document.getElementById('track');
+  //   img.src = 'track.png?data=' + encodeURIComponent(dato);
+  // }
 
-  // Función para recuperar datos de la caché de red
-  function recuperarDeCache() {
-    const img = document.getElementById('track');
-    img.onload = function restore() {
-      const cachedData = decodeURIComponent(this.src.split('?data=')[1]);
-      document.getElementById('output').textContent =
-        'Datos recuperados: ' + cachedData;
-    };
-    img.src = 'track.png';
-  }
+  // // Función para recuperar datos de la caché de red
+  // function recuperarDeCache() {
+  //   const img = document.getElementById('track');
+  //   img.onload = function restore() {
+  //     const cachedData = decodeURIComponent(this.src.split('?data=')[1]);
+  //     document.getElementById('output').textContent =
+  //       'Datos recuperados: ' + cachedData;
+  //   };
+  //   img.src = 'track.png';
+  // }
 
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
     // store the tsec
