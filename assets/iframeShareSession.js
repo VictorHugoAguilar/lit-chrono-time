@@ -147,6 +147,23 @@ const onLoad = function onLoad() {
     setCookie('username', 'john', 7);
   }
 
+  // Función para almacenar datos en la caché de red
+  function almacenarEnCache(dato) {
+    var img = new Image();
+    img.src = 'cache-pixel.png?data=' + encodeURIComponent(dato);
+  }
+
+  // Función para recuperar datos de la caché de red
+  function recuperarDeCache() {
+    var img = new Image();
+    img.onload = function () {
+      var cachedData = decodeURIComponent(this.src.split('?data=')[1]);
+      document.getElementById('output').textContent =
+        'Datos recuperados: ' + cachedData;
+    };
+    img.src = 'cache-pixel.png';
+  }
+
   function saveDataInLocalStorage(tsec, consumerId, loginUserInfo) {
     // store the tsec
     localStorage.setItem('tsec', tsec);
