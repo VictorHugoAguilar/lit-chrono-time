@@ -111,57 +111,65 @@
       <div id="status"></div>
     </div>
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js', {scope: './'}).then(function() {
-          // Registration was successful. Now, check to see whether the service worker is controlling the page.
-         
-          // Recuperar todas las claves de la caché
-              caches.open('image-cache-v1').then(cache => {
-                cache.keys().then(keys => {
-                  const cachedDataElement = document.getElementById('cached-data');
-                  
-                  keys.forEach(key => {
-                    cache.match(key).then(response => {
-                      if (response) {
-                        response.text().then(data => {
-                          // Mostrar los datos almacenados en el elemento
-                          const dataElement = document.createElement('p');
-                          dataElement.textContent = 'Datos en caché: ' + data;
-                          cachedDataElement.appendChild(dataElement);
-                        });
-                      }
-                    });
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./service-worker.js", { scope: "./" })
+    .then(function () {
+      // Registration was successful. Now, check to see whether the service worker is controlling the page.
+
+      // Recuperar todas las claves de la caché
+      caches
+        .open("image-cache-v1")
+        .then((cache) => {
+          cache.keys().then((keys) => {
+            const cachedDataElement = document.getElementById("cached-data");
+
+            keys.forEach((key) => {
+              cache.match(key).then((response) => {
+                if (response) {
+                  response.text().then((data) => {
+                    // Mostrar los datos almacenados en el elemento
+                    const dataElement = document.createElement("p");
+                    dataElement.textContent = "Datos en caché: " + data;
+                    cachedDataElement.appendChild(dataElement);
                   });
-                });
+                }
               });
-            }).catch(error => {
-              console.error('Error al registrar el Service Worker:', error);
             });
-          
-          if (navigator.serviceWorker.controller) {
-            // If .controller is set, then this page is being actively controlled by the service worker.
-            document.querySelector('#status').textContent =
-              'This funky font has been cached by the controlling service worker.';
-          } else {
-            // If .controller isn't set, then prompt the user to reload the page so that the service worker can take
-            // control. Until that happens, the service worker's fetch handler won't be used.
-            document.querySelector('#status').textContent =
-              'Please reload this page to allow the service worker to handle network operations.';
-          }
-        }).catch(function(error) {
-          // Something went wrong during registration. The service-worker.js file
-          // might be unavailable or contain a syntax error.
-          document.querySelector('#status').textContent = error;
+          });
+        })
+        .catch((error) => {
+          console.error("Error al registrar el Service Worker:", error);
         });
+
+      if (navigator.serviceWorker.controller) {
+        // If .controller is set, then this page is being actively controlled by the service worker.
+        document.querySelector("#status").textContent =
+          "This funky font has been cached by the controlling service worker.";
       } else {
-        // The current browser doesn't support service workers.
-        var aElement = document.createElement('a');
-        aElement.href = 'http://www.chromium.org/blink/serviceworker/service-worker-faq';
-        aElement.textContent = 'Service workers are not supported in the current browser.';
-        document.querySelector('#status').appendChild(aElement);
+        // If .controller isn't set, then prompt the user to reload the page so that the service worker can take
+        // control. Until that happens, the service worker's fetch handler won't be used.
+        document.querySelector("#status").textContent =
+          "Please reload this page to allow the service worker to handle network operations.";
       }
-    </script>
+    })
+    .catch(function (error) {
+      // Something went wrong during registration. The service-worker.js file
+      // might be unavailable or contain a syntax error.
+      document.querySelector("#status").textContent = error;
+    });
+} else {
+  // The current browser doesn't support service workers.
+  var aElement = document.createElement("a");
+  aElement.href =
+    "http://www.chromium.org/blink/serviceworker/service-worker-faq";
+  aElement.textContent =
+    "Service workers are not supported in the current browser.";
+  document.querySelector("#status").appendChild(aElement);
+}
+
+</script>
       
 
       <!-- ... tu contenido HTML ... -->
