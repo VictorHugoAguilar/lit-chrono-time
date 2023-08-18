@@ -114,7 +114,7 @@
 <script>
   if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("./service-workers-all.js", { scope: "/app/" })
+    .register("./service-worker.js", { scope: "/app/" })
     .then(function () {
       // Registration was successful. Now, check to see whether the service worker is controlling the page.
 
