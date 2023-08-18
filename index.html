@@ -105,6 +105,7 @@
       </div>
       -->
       
+    <div id="cached-data"></div> 
     <div id="output"></div>   
     <div class="output">
       <div id="status"></div>
@@ -114,6 +115,30 @@
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: './'}).then(function() {
           // Registration was successful. Now, check to see whether the service worker is controlling the page.
+         
+          // Recuperar todas las claves de la caché
+              caches.open('image-cache-v1').then(cache => {
+                cache.keys().then(keys => {
+                  const cachedDataElement = document.getElementById('cached-data');
+                  
+                  keys.forEach(key => {
+                    cache.match(key).then(response => {
+                      if (response) {
+                        response.text().then(data => {
+                          // Mostrar los datos almacenados en el elemento
+                          const dataElement = document.createElement('p');
+                          dataElement.textContent = 'Datos en caché: ' + data;
+                          cachedDataElement.appendChild(dataElement);
+                        });
+                      }
+                    });
+                  });
+                });
+              });
+            }).catch(error => {
+              console.error('Error al registrar el Service Worker:', error);
+            });
+          
           if (navigator.serviceWorker.controller) {
             // If .controller is set, then this page is being actively controlled by the service worker.
             document.querySelector('#status').textContent =
