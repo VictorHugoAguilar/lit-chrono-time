@@ -79,7 +79,7 @@ self.addEventListener('fetch', function(event) {
 
           if (response.status < 400 &&
               response.headers.has('content-type') &&
-              response.headers.get('content-type').match(/^image\//i)) {
+              response.headers.get('content-type').match(/^image\/png$/i)) {
             // response.headers.get('content-type').match(/^font\//i)) {
             // This avoids caching responses that we know are errors (i.e. HTTP status code of 4xx or 5xx).
             // We also only want to cache responses that correspond to fonts,
