@@ -55,6 +55,7 @@ self.addEventListener('fetch', function(event) {
 
   event.respondWith(
     caches.open(CURRENT_CACHES.image).then(function(cache) {
+     console.log('🍌cache', cache);
       return cache.match(event.request).then(function(response) {
         if (response) {
           // If there is an entry in the cache for event.request, then response will be defined
