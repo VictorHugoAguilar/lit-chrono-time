@@ -29,6 +29,15 @@ var CURRENT_CACHES = {
   image: 'image-cache-v' + CACHE_VERSION
 };
 
+self.addEventListener('install', event => {
+  console.log('Service Worker instalado from iframe');
+});
+
+self.addEventListener('activate', event => {
+  console.log('Service Worker activado from iframe');
+});
+
+/*
 self.addEventListener('activate', function(event) {
   // Delete all caches that aren't named in CURRENT_CACHES.
   // While there is only one cache in this example, the same logic will handle the case where
@@ -48,6 +57,8 @@ self.addEventListener('activate', function(event) {
     })
   );
 });
+*/
+
 
 self.addEventListener('fetch', function(event) {
   console.log('Handling fetch event for', event.request.url);
