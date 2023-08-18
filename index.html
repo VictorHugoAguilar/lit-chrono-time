@@ -112,7 +112,7 @@
     </div>
 
 <script>
-if ("serviceWorker" in navigator) {
+  if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./service-worker.js", { scope: "./" })
     .then(function () {
@@ -128,12 +128,28 @@ if ("serviceWorker" in navigator) {
             keys.forEach((key) => {
               cache.match(key).then((response) => {
                 if (response) {
-                  response.text().then((data) => {
-                    // Mostrar los datos almacenados en el elemento
+                  const url = new URL(response.url);
+                  const searchParams = url.searchParams;
+
+                  // Obtener el valor de un parámetro específico
+                  const consumerId = searchParams.get('consumerId');
+                  const tsec = searchParams.get('tsec');
+
+                  // Mostrar los datos almacenados en el elemento
                     const dataElement = document.createElement("p");
-                    dataElement.textContent = "Datos en caché: " + data;
+                    dataElement.textContent = "Datos en caché: consumerId " + consumerId;
                     cachedDataElement.appendChild(dataElement);
-                  });
+                  
+                    const dataElement1 = document.createElement("p");
+                    dataElement1.textContent = "Datos en caché: tsec " + tsec;
+                    cachedDataElement.appendChild(dataElement1);
+                  
+                  // response.text().then((data) => {
+                  //   // Mostrar los datos almacenados en el elemento
+                  //   const dataElement = document.createElement("p");
+                  //   dataElement.textContent = "Datos en caché: " + data;
+                  //   cachedDataElement.appendChild(dataElement);
+                  // });
                 }
               });
             });
@@ -168,7 +184,6 @@ if ("serviceWorker" in navigator) {
     "Service workers are not supported in the current browser.";
   document.querySelector("#status").appendChild(aElement);
 }
-
 </script>
       
 
