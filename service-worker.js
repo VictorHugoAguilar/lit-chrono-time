@@ -38,7 +38,6 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
-         console.log('🍌activate cacheName', cacheName);
           if (!expectedCacheNamesSet.has(cacheName)) {
             // If this cache name isn't present in the set of "expected" cache names, then delete it.
             console.log('Deleting out of date cache:', cacheName);
@@ -55,7 +54,6 @@ self.addEventListener('fetch', function(event) {
 
   event.respondWith(
     caches.open(CURRENT_CACHES.image).then(function(cache) {
-     console.log('🍌cache', cache);
       return cache.match(event.request).then(function(response) {
         if (response) {
           // If there is an entry in the cache for event.request, then response will be defined
